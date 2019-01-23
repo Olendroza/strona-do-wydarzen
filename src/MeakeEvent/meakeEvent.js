@@ -117,9 +117,7 @@ export class MeakeEvent extends Component{
 
 
     handleMeakeEventSubmisson(){
-        let numberOfEvents=localStorage.getItem('numberOfEvents');
-        localStorage.setItem('event'+numberOfEvents,JSON.stringify(this.state));
-        localStorage.setItem('numberOfEvents',++numberOfEvents);
+        
         this.props.handleEventCreation(this.state)
     }
 

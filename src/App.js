@@ -2,6 +2,36 @@ import React, { Component } from 'react';
 import {DisplayEvent} from './DisplayEvent/displayEvent';
 import {MeakeEvent} from './MeakeEvent/meakeEvent';
 import {DisplayList} from './Search/search'
+import { number } from 'prop-types';
+
+function findSameNames(array,s){
+  let ar =[]
+  
+  for(let i=0;i<array.length;i++){
+      if(array[i].includes(s))
+          ar.push(array[i])
+  }
+  if(ar.length===0)
+      return ''
+  if(ar.length===1)
+      return '#2'
+  else{
+    console.log('jestem w elsie')
+    let numbersArray =[]
+      for(let i=0;i<ar.length;i++){
+        if(ar[i]===s)
+          ar.splice(i,1)
+      }
+      
+      ar.forEach(element=>{
+        numbersArray.push(element[element.length-1])
+      })
+      return '#'+(Math.max.apply(null,numbersArray)+1)
+
+  }
+      
+}
+
 
 class App extends Component {
   constructor(props){
@@ -78,7 +108,18 @@ class App extends Component {
   
   handleEventCreation(event){
      let eventList = this.state.eventListArray
-     eventList.push(event)
+      let titleArray =[]
+    for(let i=0;i<eventList.length;i++)
+    {
+      titleArray.push(eventList[i].title)
+    }
+    event.title=event.title+findSameNames(titleArray,event.title)
+    eventList.push(event)
+    let numberOfEvents=localStorage.getItem('numberOfEvents');
+    localStorage.setItem('event'+numberOfEvents,JSON.stringify(event));
+    localStorage.setItem('numberOfEvents',++numberOfEvents);
+
+
       this.setState({eventListArray:eventList})
       this.handleDisplayEventChoise(eventList.length-1)
      }
