@@ -96,7 +96,7 @@ export class DisplayEvent extends Component{
                         : <Map center={this.state.eventPlace} title={this.state.title}/>
                  }
                    </div>
-                   <ImageSwitcher  style={{height:5}} name={this.state.imageVisibility ? 'Mapa':'Obrazek'} handleClick={this.handleImageSwitch}/>
+                   <ImageSwitcher  style={{height:5}} name={this.state.imageVisibility ? 'Obrazek':'Mapa'} handleClick={this.handleImageSwitch}/>
 
                 </div>
                 <div style={{paddingLeft: '50px'}}>

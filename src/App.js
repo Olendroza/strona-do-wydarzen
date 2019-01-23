@@ -50,8 +50,6 @@ class App extends Component {
   updateDimensions() {
     if(window.outerWidth<800)
       {
-        
-        console.log('huj')
         this.setState({view:1})
         this.setState({isEventListVisible:false})
       }
