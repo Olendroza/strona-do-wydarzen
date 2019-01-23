@@ -48,14 +48,14 @@ class App extends Component {
     window.addEventListener("resize", this.updateDimensions);
   }
   updateDimensions() {
-    if(window.outerWidth<600)
+    if(window.outerWidth<800)
       {
         
         console.log('huj')
         this.setState({view:1})
         this.setState({isEventListVisible:false})
       }
-      else if (window.outerWidth>600)
+      else if (window.outerWidth>800)
       {
         if(this.state.itemShown===2)
             this.setState({itemShown:0})
