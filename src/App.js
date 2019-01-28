@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {DisplayEvent} from './DisplayEvent/displayEvent';
 import {MeakeEvent} from './MeakeEvent/meakeEvent';
 import {DisplayList} from './Search/search'
+import {MainPageComponent} from './mainPageComponent/mainPageComponent'
 import styles from './App.css'
 
 function findSameNames(array,s){
@@ -251,6 +252,7 @@ class App extends Component {
         <div className='leftContent'>left content
         </div>
         <div className='rightContent'>right content 
+          <MainPageComponent/>
         </div>
         </div>
 
