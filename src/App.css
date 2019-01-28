@@ -1,0 +1,30 @@
+.container{
+    width: 100vw;
+    display: grid;
+    grid-template-columns:  repeat(8,1fr);
+    grid-template-rows: auto auto
+}
+.navBar{
+    grid-column: 1/-1;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+}
+    .navBarName{
+        width: 400px
+    }
+    .buttonsContainer{
+        align-self: flex-end;
+        width:200px;
+        padding: 15px
+    }
+
+
+.leftContent{
+    grid-column: 1/2
+}
+.rigtContent{
+    background: blue;
+    grid-column: auto;
+}

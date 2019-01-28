@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {DisplayEvent} from './DisplayEvent/displayEvent';
 import {MeakeEvent} from './MeakeEvent/meakeEvent';
 import {DisplayList} from './Search/search'
-import { number } from 'prop-types';
+import styles from './App.css'
 
 function findSameNames(array,s){
   let ar =[]
@@ -239,13 +239,21 @@ class App extends Component {
     
     return (
       <div style={{width: '99vw'}} >
-        
-        <TopBar  onCreateEventClick={this.handleCreateEventClick}
+        {middlePart}
+        <div className='container'>
+        <TopBar  
+                className='navBar'
+                onCreateEventClick={this.handleCreateEventClick}
                  onDisplayEventClick = {this.handleDisplayEvents}
                  onDisplayListClick = {this.handleDisplayList}
                  view = {this.state.view}
          />
-        {middlePart}
+        <div className='leftContent'>left content
+        </div>
+        <div className='rightContent'>right content 
+        </div>
+        </div>
+
       </div>
     );
   }
@@ -256,19 +264,19 @@ class TopBar extends Component{
   render () {
     let ButtonNames = ['Nowe Wydarzenie','Wyświetl wydarzenie','Lista wydarzeń'];
     return (
-      <nav style={TopBarStyles} >
-      <h1 style={{float:'left'}}> Strona Do Wydarzeń</h1>
-        <div style={{float:'right', padding : 3,}}>
-        
+      <div className={this.props.className}>
+      <div className='navBarName'> <h1>Strona Do Wydarzeń</h1></div>
+
+        <div className='buttonsContainer'>
           <MenuButton name={ButtonNames[0]} handleClick={this.props.onCreateEventClick} />
           <MenuButton name={ButtonNames[1]} handleClick={this.props.onDisplayEventClick}/>
           { this.props.view===1 ?
             <MenuButton name={ButtonNames[2]} handleClick={this.props.onDisplayListClick}/>:
             <p></p>
           }
-
+       
         </div>
-      </nav>
+      </div>
     );
   }
 }
@@ -282,7 +290,7 @@ class MenuButton extends Component {
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
   handleClick(){
-    this.props.handleClick()
+    this.props.handleClick() 
   }
   handleMouseEnter(){
     this.setState({style: MenuButtonHoveredStyles});
@@ -298,21 +306,12 @@ class MenuButton extends Component {
     );
   }
 }
-// styles/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-let TopBarStyles ={
-  backgroundImage : 'linear-gradient(to right,white,grey)',
-  padding: 15,
-  display :'flex',
-  flexWrap: 'wrap',
-  justifyContent: 'space-between',
-  width  : '100%',
-  height : 'auto',
-}
+
 
 let MenuButtonStyles  = {
   padding: '0.5vh',
   background : 'red',
-  opacity : '0.5'
+  opacity : '0.5',
 }
 let MenuButtonHoveredStyles  = {
   padding: '0.5vh',
