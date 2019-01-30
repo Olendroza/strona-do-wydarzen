@@ -50,6 +50,7 @@ class App extends Component {
     }
     else{
       this.state= {
+        rightBoxContent: 'homePage',
         itemShown: 0,   //0-display event, 1 event edition/creation, 2 display event list. If viev is 0 then only 0 and 1 is viable, becouse event list is alvays shown
         updateList: false,
         displayedEvent:0,
@@ -72,6 +73,9 @@ class App extends Component {
     this.handleDisplayList=this.handleDisplayList.bind(this)
 
     this.updateDimensions = this.updateDimensions.bind(this);
+
+
+    this.handleInintialSortingChoise = this.handleInintialSortingChoise.bind(this);
 
   }
 
@@ -180,6 +184,13 @@ class App extends Component {
     this.setState({itemShown: 2})
   }
 
+  handleInintialSortingChoise(choise,lat,lng){
+    console.log(choise)
+
+    this.setState({rightBoxContent: 'list',
+                    })
+  }
+  
    
 
 
@@ -192,12 +203,12 @@ class App extends Component {
                           editingEvent={this.state.editingEvent}
                           />
     let displayEventBlock = <DisplayEvent displayedEvent={this.state.displayedEvent}
-                             view={this.state.view}
-                             /> 
+                              view={this.state.view}
+                              /> 
     let eventListBlock = <DisplayList eventListArray={this.state.eventListArray}  lista wydarzen
                           handleEventDeletion = {this.handleEventDeletion}
-                           handleEventChoise={this.handleDisplayEventChoise}
-                           handleEventEdition={this.handleEventEdition}
+                            handleEventChoise={this.handleDisplayEventChoise}
+                            handleEventEdition={this.handleEventEdition}
                           />
     let middlePart
     if(this.state.view===0){
@@ -205,24 +216,24 @@ class App extends Component {
         middlePart = <div style={{display:'flex'}}>
         {displayEventBlock}
         {eventListBlock}
-       </div>
+        </div>
       }
       else{
         middlePart = <div style={{display:'flex'}}>
         {meakeEventBlock}
         {eventListBlock}
-       </div>
+        </div>
       }
     }else{
       if(this.state.itemShown===0){
         middlePart = <div style={{display:'flex'}}>
         {displayEventBlock}
-       </div>
+        </div>
       }
       else if(this.state.itemShown===1){
         middlePart = <div style={{display:'flex'}}>
         {meakeEventBlock}
-       </div>
+        </div>
       }
       else{
         middlePart = <div style={{display:'flex',
@@ -230,13 +241,24 @@ class App extends Component {
         flexDirection:'column',
         flexWrap: 'wrap',
         alignItems: 'center',
-         justifyContent: 'center'}}>
+          justifyContent: 'center'}}>
         {eventListBlock}
-       </div>
+        </div>
       }
 
     }
-
+    
+    let rightBoxContent
+    if(this.state.rightBoxContent==='list'){
+      rightBoxContent = <DisplayList eventListArray={this.state.eventListArray}  lista wydarzen
+      handleEventDeletion = {this.handleEventDeletion}
+        handleEventChoise={this.handleDisplayEventChoise}
+        handleEventEdition={this.handleEventEdition}
+      />
+    }
+    else{
+      rightBoxContent=<div>pustość</div>
+    }
     
     return (
       <div style={{width: '99vw'}} >
@@ -252,7 +274,8 @@ class App extends Component {
         <div className='leftContent'>left content conte
         </div>
         <div className='rightContent'>
-          <MainPageComponent/>
+          <MainPageComponent handleSelect={this.handleInintialSortingChoise}/>
+          {rightBoxContent}
         </div>
         </div>
 
