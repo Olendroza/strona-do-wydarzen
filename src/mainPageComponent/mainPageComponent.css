@@ -1,0 +1,15 @@
+
+.innerDiv{
+    margin: auto;
+    margin-top: 10%
+}
+.searchDiv{
+    display:flex;
+    justify-content: space-between
+}
+.searchButton{
+    height: 30px;
+}
+.location-search-input{
+    width:300px;
+}

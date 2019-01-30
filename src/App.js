@@ -249,9 +249,9 @@ class App extends Component {
                  onDisplayListClick = {this.handleDisplayList}
                  view = {this.state.view}
          />
-        <div className='leftContent'>left content
+        <div className='leftContent'>left content conte
         </div>
-        <div className='rightContent'>right content 
+        <div className='rightContent'>
           <MainPageComponent/>
         </div>
         </div>
