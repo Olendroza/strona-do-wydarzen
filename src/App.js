@@ -210,44 +210,6 @@ class App extends Component {
                             handleEventChoise={this.handleDisplayEventChoise}
                             handleEventEdition={this.handleEventEdition}
                           />
-    let middlePart
-    if(this.state.view===0){
-      if(this.state.itemShown===0){
-        middlePart = <div style={{display:'flex'}}>
-        {displayEventBlock}
-        {eventListBlock}
-        </div>
-      }
-      else{
-        middlePart = <div style={{display:'flex'}}>
-        {meakeEventBlock}
-        {eventListBlock}
-        </div>
-      }
-    }else{
-      if(this.state.itemShown===0){
-        middlePart = <div style={{display:'flex'}}>
-        {displayEventBlock}
-        </div>
-      }
-      else if(this.state.itemShown===1){
-        middlePart = <div style={{display:'flex'}}>
-        {meakeEventBlock}
-        </div>
-      }
-      else{
-        middlePart = <div style={{display:'flex',
-        width:'100vw',
-        flexDirection:'column',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-          justifyContent: 'center'}}>
-        {eventListBlock}
-        </div>
-      }
-
-    }
-    
     let rightBoxContent
     if(this.state.rightBoxContent==='list'){
       rightBoxContent = <DisplayList eventListArray={this.state.eventListArray}  lista wydarzen
@@ -262,7 +224,6 @@ class App extends Component {
     
     return (
       <div style={{width: '99vw'}} >
-        {middlePart}
         <div className='container'>
         <TopBar  
                 className='navBar'
