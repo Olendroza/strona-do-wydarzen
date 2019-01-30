@@ -20,9 +20,8 @@ function formatDate(d){
         this.sortListByCategory = this.sortListByCategory.bind(this)
         this.sortListByDate = this.sortListByDate.bind(this)
         this.sortListByDistanceFrom= this.sortListByDistanceFrom.bind(this)
-        //this.sortListByCategory = this.sortListByCategory.bind(this)
-        //this.sortListByCategory = this.sortListByCategory.bind(this)
-        //this.sortListByCategory = this.sortListByCategory.bind(this)
+        
+        
 
     }
 
@@ -35,7 +34,27 @@ function formatDate(d){
                     originalEventList:props.eventListArray}
     }
     }
-    
+
+    componentDidMount(){
+        console.log('loguje')
+
+        console.log(console.log(this.props.searchingPlace))
+        switch(this.props.initialSorting){
+            case 0:
+                this.sortListByDistanceFrom(this.props.searchingPlace)
+                break;
+            case 1: 
+                this.sortListAlphabetically()
+                break;
+            case 2:
+                this.sortListByCategory()
+                break;
+            case 3:
+                this.sortListByDate();
+                break;
+        }
+    }
+
     getDataFromLocalStorage() {
         let searchListItems = []
             this.state.eventList.forEach(element => {
@@ -134,7 +153,8 @@ function formatDate(d){
     }
         
     render(){
-        return(<div style={{display: 'flex',
+        return(
+        <div style={{display: 'flex',
             flexDirection:'column',
             alignItems: 'center',
             justifyContent: 'center'}}>

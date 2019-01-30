@@ -57,7 +57,8 @@ class App extends Component {
         editingEvent: '',
         eventListArray:[],
         isEventListVisible:true,
-        view:0    //0-normal view, 1- width<=600px
+        view:0,    //0-normal view, 1- width<=600px
+        listInitialSorting:0
       };
     }
     
@@ -188,6 +189,8 @@ class App extends Component {
     console.log(choise)
 
     this.setState({rightBoxContent: 'list',
+                    listInitialSorting:choise,
+                    searchingPlace: {lat:lat,lng:lng}
                     })
   }
   
@@ -209,6 +212,8 @@ class App extends Component {
                           handleEventDeletion = {this.handleEventDeletion}
                             handleEventChoise={this.handleDisplayEventChoise}
                             handleEventEdition={this.handleEventEdition}
+                            initialSorting = {this.state.listInitialSorting}
+                            searchingPlace = {this.state.searchingPlace}
                           />
     let mainPageComponentBlock = <MainPageComponent handleSelect={this.handleInintialSortingChoise}/>
     let rightBoxContent
