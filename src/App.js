@@ -50,7 +50,7 @@ class App extends Component {
     }
     else{
       this.state= {
-        rightBoxContent: 'homePage',
+        rightBoxContent: 'homepage',
         itemShown: 0,   //0-display event, 1 event edition/creation, 2 display event list. If viev is 0 then only 0 and 1 is viable, becouse event list is alvays shown
         updateList: false,
         displayedEvent:0,
@@ -210,16 +210,15 @@ class App extends Component {
                             handleEventChoise={this.handleDisplayEventChoise}
                             handleEventEdition={this.handleEventEdition}
                           />
+    let mainPageComponentBlock = <MainPageComponent handleSelect={this.handleInintialSortingChoise}/>
     let rightBoxContent
-    if(this.state.rightBoxContent==='list'){
-      rightBoxContent = <DisplayList eventListArray={this.state.eventListArray}  lista wydarzen
-      handleEventDeletion = {this.handleEventDeletion}
-        handleEventChoise={this.handleDisplayEventChoise}
-        handleEventEdition={this.handleEventEdition}
-      />
-    }
-    else{
-      rightBoxContent=<div>pustość</div>
+
+    switch(this.state.rightBoxContent){
+      case 'homepage': 
+            rightBoxContent=mainPageComponentBlock 
+            break;
+      case 'list':
+            rightBoxContent=eventListBlock
     }
     
     return (
@@ -235,7 +234,6 @@ class App extends Component {
         <div className='leftContent'>left content conte
         </div>
         <div className='rightContent'>
-          <MainPageComponent handleSelect={this.handleInintialSortingChoise}/>
           {rightBoxContent}
         </div>
         </div>
