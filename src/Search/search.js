@@ -19,6 +19,7 @@ function formatDate(d){
         this.sortListAlphabetically = this.sortListAlphabetically.bind(this)
         this.sortListByCategory = this.sortListByCategory.bind(this)
         this.sortListByDate = this.sortListByDate.bind(this)
+        this.sortListByDistanceFrom= this.sortListByDistanceFrom.bind(this)
         //this.sortListByCategory = this.sortListByCategory.bind(this)
         //this.sortListByCategory = this.sortListByCategory.bind(this)
         //this.sortListByCategory = this.sortListByCategory.bind(this)
@@ -116,6 +117,21 @@ function formatDate(d){
         this.setState({eventList:newArray,
             localChange:true})
     }
+    sortListByDistanceFrom(){
+        let events = this.state.originalEventList
+        let place ={lat: 50.2974884, lng: 18.95457280000005}
+        let distancesArray =[];
+        events.forEach(event=>{
+            distancesArray.push({
+                name: event.title,
+                distance: Math.sqrt(Math.pow(place.lat-event.eventPlace.lat,2)+Math.cos(event.eventPlace.lat*Math.PI/108)*Math.pow(place.lng-event.eventPlace.lng,2))*40075.704/360
+            })  
+            distancesArray.sort(function(a,b){
+                return a.distance-b.distance
+            })
+            console.log(distancesArray);
+        })   
+    }
         
     render(){
         return(<div style={{display: 'flex',
@@ -136,6 +152,7 @@ function formatDate(d){
                             <button onClick={this.sortListAlphabetically} >Alfabetycznie</button>
                             <button onClick={this.sortListByCategory} >katogoria</button>
                             <button onClick={this.sortListByDate} >data</button>
+                            <button onClick={this.sortListByDistanceFrom} >dystans</button>
 
 
                             </div>
