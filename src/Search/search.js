@@ -36,9 +36,6 @@ function formatDate(d){
     }
 
     componentDidMount(){
-        console.log('loguje')
-
-        console.log(console.log(this.props.searchingPlace))
         switch(this.props.initialSorting){
             case 0:
                 this.sortListByDistanceFrom(this.props.searchingPlace)
@@ -90,7 +87,6 @@ function formatDate(d){
         this.state.eventList.forEach(element =>{
             titleArray.push(element.title)
         })
-        console.log(titleArray)
 
         titleArray.sort()
         for(let i=0;i<titleArray.length;i++){
@@ -136,10 +132,10 @@ function formatDate(d){
         this.setState({eventList:newArray,
             localChange:true})
     }
-    sortListByDistanceFrom(){
+    sortListByDistanceFrom(place){
         let events = this.state.originalEventList
-        let place ={lat: 50.2974884, lng: 18.95457280000005}
         let distancesArray =[];
+        let finalList =[]
         events.forEach(event=>{
             distancesArray.push({
                 name: event.title,
@@ -148,8 +144,15 @@ function formatDate(d){
             distancesArray.sort(function(a,b){
                 return a.distance-b.distance
             })
-            console.log(distancesArray);
-        })   
+        })
+        distancesArray.forEach((distance)=>{
+            events.forEach((e)=>{
+                if(distance.name===e.title)
+                    finalList.push(e)
+            })
+        })
+        this.setState({eventList:finalList,
+            localChange:true})  
     }
         
     render(){
