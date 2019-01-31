@@ -28,4 +28,18 @@
     height: 200px;
     width: 200px;
 
+    background-repeat: no-repeat;
+    background-position-y: -15px;
+    position: relative;
+    
+
+}
+.listItemContent{
+    background: white;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+.listItemButtons{
+  
 }

@@ -61,6 +61,7 @@ function formatDate(d){
                     handleEventDeletion = {this.props.handleEventDeletion}
                     handleEventEdition = {this.props.handleEventEdition}
                     beginDate={formatDate(element.beginDate)}
+                    imgSrc={element.imgSrc}
                     categoty={element.category}/>)
             });
             return <div className='eventContainer'>{searchListItems}</div> 
@@ -193,6 +194,9 @@ class ListItem extends Component{
 
       }
       handleClick(){
+          console.log('kliknieto diva')
+        
+        console.log('wykonano diva')
        this.props.onClick(this.props.elementIndex)
       }
       handleMouseEnter(){
@@ -210,15 +214,17 @@ class ListItem extends Component{
       
       render () {
         return (
-          <div className='listItem'>
-            <div  onClick={this.handleClick} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+          <div className='listItem' style={{backgroundImage: "url("+this.props.imgSrc+")"}}>
+            <div  className='listItemContent'  onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+            <div onClick={this.handleClick}>
                 {this.props.title}<br/>
                 {this.props.beginDate} <br/>
                 {this.props.categoty} <br/>
             </div>
-            <div  >
+            <div className='listItemButtons' >
             <button  onClick={this.handleEditClick}>Edit</button>
             <button  onClick={this.handleDeleteClick}>Delete</button>
+            </div>
             </div>
         </div>
     )

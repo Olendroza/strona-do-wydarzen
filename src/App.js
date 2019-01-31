@@ -134,11 +134,12 @@ class App extends Component {
 
   }
   handleEventEdition(n){
+    console.log('n to' +n)
     let editingEvent = this.state.eventListArray[n]
     editingEvent.editionMode  = true
     editingEvent.index = n
-    this.setState({editingEvent: editingEvent})
-    this.setState({rightBoxContent: 'createEvent'})
+    this.setState({editingEvent: editingEvent,
+      rightBoxContent:'createEvent'})
   }
 
   handleEventSave(event,n){
@@ -200,6 +201,7 @@ class App extends Component {
     let mainPageComponentBlock = <MainPageComponent handleSelect={this.handleInintialSortingChoise}/>
     let rightBoxContent
 
+console.log('state'  + this.state.rightBoxContent)
     switch(this.state.rightBoxContent){
       case 'homepage': 
             rightBoxContent=mainPageComponentBlock 
@@ -208,9 +210,13 @@ class App extends Component {
             rightBoxContent=eventListBlock
             break;
       case 'createEvent':
-            rightBoxContent=meakeEventBlock
+            rightBoxContent=meakeEventBlock;
+            console.log('estem');
+            break;
+
     }
-    
+    console.log(rightBoxContent)
+
     return (
       <div style={{width: '99vw'}} >
         <div className='container'>
