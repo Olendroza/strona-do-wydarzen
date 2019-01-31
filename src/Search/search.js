@@ -184,10 +184,8 @@ function formatDate(d){
 class ListItem extends Component{
     constructor(props){
         super(props)
-        this.state = ({style: ListItemStyles});
         this.handleClick = this.handleClick.bind(this);
-        this.handleMouseEnter = this.handleMouseEnter.bind(this);
-        this.handleMouseLeave = this.handleMouseLeave.bind(this);
+
         this.handleDeleteClick = this.handleDeleteClick.bind(this);
         this.handleEditClick = this.handleEditClick.bind(this);
 
@@ -198,12 +196,6 @@ class ListItem extends Component{
         
         console.log('wykonano diva')
        this.props.onClick(this.props.elementIndex)
-      }
-      handleMouseEnter(){
-        this.setState({style: ListItemStylesClicked});
-      }
-      handleMouseLeave(){
-        this.setState({style: ListItemStyles});
       }
       handleDeleteClick(){
         this.props.handleEventDeletion(this.props.elementIndex)
@@ -232,29 +224,8 @@ class ListItem extends Component{
 
 }
 
-let ListItemStyles= {
-    background: 'green',
-    padding:15,
-    border:'solid',
-     borderWidth: '2',display:'flex',
-     width:'100px',
-     justifyContent: 'space-between'
-}
-let ListItemStylesClicked= {
-    background: 'grey',
-    padding:15,
-    border:'solid',
-     borderWidth: '2',display:'flex',
-     width:'100px',
-     justifyContent: 'space-between'
-}
-let DisplayEventStyles = {
-    width:'49vw',
-    display: 'flex',
-    flexWrap: 'wrap',
-    padding: '30px',
-    justifyContent: 'center'
-}
+
+
 
 
 
