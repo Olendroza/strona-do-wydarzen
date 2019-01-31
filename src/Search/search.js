@@ -202,7 +202,6 @@ class ListItem extends Component{
         this.props.handleEventDeletion(this.props.elementIndex)
       }
       handleEditClick(){
-          console.log('edycja')
           this.props.handleEventEdition(this.props.elementIndex)
       }
       
