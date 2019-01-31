@@ -97,7 +97,6 @@ export class MeakeEvent extends Component{
     }
     handleCategoryChange(s){
         this.setState({category: s,localChange:true})
-
     }
 
 
@@ -113,11 +112,13 @@ export class MeakeEvent extends Component{
     }
 
     handleLocationSelect(lat,lng){
+        console.log('lat'+lat)
         this.setState({eventPlace:{
             lat: lat,
             lng: lng
         },
-    localChange:true})
+        localChange:true})
+        console.log('a')
         
     }
         
@@ -149,10 +150,12 @@ export class MeakeEvent extends Component{
             </div>
             <div className='mapContainer'>
             Dodaj adres obrazu:<AddTextData className='imgUrlInput' name={this.state.imgSrc} onSubmit={this.handleImgSrcSubmission}/>     
+            <Map center={this.state.eventPlace} title={this.state.title}/>
             Wybierz miejsce wydarzenia:
             <LocationSearchInput handleSelect={this.handleLocationSelect} 
                                  value={'Chorzów'}
-                                 onChange={value => this.setState({ value })}/> 
+                                 onChange={value => this.setState({ value })}
+                                 handleSelect={(lat,lng)=>this.handleLocationSelect(lat,lng)}/> 
                             
                             
             </div>               
@@ -272,46 +275,41 @@ class Map extends Component{
         },
         zoom: 8
       };
-     
+
       render() {
         return (
           // Important! Always set the container height explicitly
-          <div style={{width:200, height:200}}>
+          <div style={{height: '300px',
+          width: '400px'}}>
             <GoogleMapReact
-              bootstrapURLKeys={{ key: 'AIzaSyAyesbQMyKVVbBgKVi2g6VX7mop2z96jBo' }}
-              defaultCenter={this.props.center}
+              bootstrapURLKeys={{ key: 'AIzaSyAlUzSR6WlgbMUJHQ12p2_c0DegJ8bAMD4' }}
+              center={this.props.center}
               defaultZoom={this.props.zoom}
               options={{
                   zoomControl:false
               }}
             >
-            <p
-              
+            <p       
               lat={this.props.center.lat}
-              lng={this.props.center.lng}
-              text={'Event'}
-              
+              lng={this.props.center.lng}             
             >
+            <span style={{height: '5px',
+                         width: '5px',
+                         backgroundColor: 'red',
+                        borderRadius: '50%',
+                         display: 'inline-block'}}></span>
+            {this.props.title}
             </p>
             </GoogleMapReact>
           </div>
         );
       }
 }
-
 class Image extends Component{
     render(){
         return( <img  className={this.props.className} src={this.props.src} alt='no image' />
          )
     }
-}
-
-
-class ImageSwitcher extends Component{
-    render(){
-        return <input type='submit' value={this.props.name} onClick={this.props.handleClick}/>
-    }
-    
 }
 
 class MeakeButton extends Component{
