@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Suggest} from './autosuggest.js'
-
+import styles from './search.css'
 
 function formatDate(d){
         return JSON.stringify(d).substring(1,11)
@@ -157,29 +157,18 @@ function formatDate(d){
         
     render(){
         return(
-        <div style={{display: 'flex',
-            flexDirection:'column',
-            alignItems: 'center',
-            justifyContent: 'center'}}>
-            <div style={{
-                display:'flex',
-                flexDirection:'row',
-                width:'80%',
-                justifyContent: 'space-between',
-                padding:'15,0,0,15'
-
-            }}>
+        <div className='container'>
+            <div className='topArea'>
                 <Suggest  
                 eventListArray={this.props.eventListArray}
                             mutateList={this.mutateList}/>
                             <button onClick={this.sortListAlphabetically} >Alfabetycznie</button>
                             <button onClick={this.sortListByCategory} >katogoria</button>
                             <button onClick={this.sortListByDate} >data</button>
-                            <button onClick={this.sortListByDistanceFrom} >dystans</button>
 
 
                             </div>
-                <div style={DisplayEventStyles} >
+                <div className='eventContainer'>
                  {this.getDataFromLocalStorage()}
                 </div>
                 
@@ -213,6 +202,7 @@ class ListItem extends Component{
         this.props.handleEventDeletion(this.props.elementIndex)
       }
       handleEditClick(){
+          console.log('edycja')
           this.props.handleEventEdition(this.props.elementIndex)
       }
       
