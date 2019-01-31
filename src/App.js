@@ -51,7 +51,6 @@ class App extends Component {
     else{
       this.state= {
         rightBoxContent: 'homepage',
-        itemShown: 0,   //0-display event, 1 event edition/creation, 2 display event list. If viev is 0 then only 0 and 1 is viable, becouse event list is alvays shown
         updateList: false,
         displayedEvent:0,
         editingEvent: '',
@@ -73,31 +72,12 @@ class App extends Component {
     this.handleEventSave=this.handleEventSave.bind(this)
     this.handleDisplayList=this.handleDisplayList.bind(this)
 
-    this.updateDimensions = this.updateDimensions.bind(this);
 
 
     this.handleInintialSortingChoise = this.handleInintialSortingChoise.bind(this);
 
   }
 
-  componentDidMount() {
-    window.addEventListener("resize", this.updateDimensions);
-  }
-  updateDimensions() {
-    if(window.outerWidth<800)
-      {
-        this.setState({view:1})
-        this.setState({isEventListVisible:false})
-      }
-      else if (window.outerWidth>800)
-      {
-        if(this.state.itemShown===2)
-            this.setState({itemShown:0})
-
-        this.setState({view:0})
-        this.setState({isEventListVisible:true})
-      }
-  }
 
   componentWillMount(){
   this.getEventListFromLocalStorage();
@@ -158,7 +138,7 @@ class App extends Component {
     editingEvent.editionMode  = true
     editingEvent.index = n
     this.setState({editingEvent: editingEvent})
-    this.setState({itemShown: 1 })
+    this.setState({rightBoxContent: 'createEvent'})
   }
 
   handleEventSave(event,n){
@@ -169,20 +149,21 @@ class App extends Component {
     this.handleDisplayEventChoise(n)
   }
   handleDisplayEventChoise=(n)=>{
-    this.setState({itemShown: 0})
+    this.setState({rightBoxContent:'displayEvent'})
      this.setState({displayedEvent: n});
   }
 
   handleCreateEventClick=()=>{
       this.setState({editingEvent: defaultEvent,
-        itemShown: 1})
+                    rightBoxContent:'createEvent'})
   }
   handleDisplayEvents(){
-    this.setState({itemShown: 0,
+    this.setState({rightBoxContent:'list',
+                    listInitialSorting:2
     })
   }
   handleDisplayList(){
-    this.setState({itemShown: 2})
+    this.setState({rightBoxContent: 'list'})
   }
 
   handleInintialSortingChoise(choise,lat,lng){
@@ -224,6 +205,9 @@ class App extends Component {
             break;
       case 'list':
             rightBoxContent=eventListBlock
+            break;
+      case 'createEvent':
+            rightBoxContent=meakeEventBlock
     }
     
     return (
