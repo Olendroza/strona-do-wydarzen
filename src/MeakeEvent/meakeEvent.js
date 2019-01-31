@@ -60,7 +60,7 @@ export class MeakeEvent extends Component{
 
 
             if(props.editingEvent.imgSrc==='Add image source'){
-                imgSrc='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1280px-No_image_3x4.svg.png'
+                imgSrc='https://www.freeiconspng.com/uploads/no-image-icon-6.png'
             }
             else
                 imgSrc = props.editingEvent.imgSrc
@@ -95,7 +95,7 @@ export class MeakeEvent extends Component{
     }
     handleImgSrcSubmission(s){
         if(s==='')
-            s='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1280px-No_image_3x4.svg.png' 
+            s='https://www.freeiconspng.com/uploads/no-image-icon-6.png' 
         this.setState({imgSrc: s,localChange:true})
     }
     handleBeginDateChange(d){

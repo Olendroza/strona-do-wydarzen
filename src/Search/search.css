@@ -7,14 +7,13 @@
 }
 .topArea{
     grid-area: a;
-    margin-left: 10vw;
+    margin-left: 32vw;
 
 }
 
 .eventContainer{
     margin-left: 10vw;
     grid-area: b;
-    background: blue;
     width:60vw;
 
     display: flex;
@@ -29,17 +28,20 @@
     width: 200px;
 
     background-repeat: no-repeat;
-    background-position-y: -15px;
+    background-position: center; 
     position: relative;
     
 
 }
 .listItemContent{
-    background: white;
+    background-image: linear-gradient(to top,white,rgb(255, 255, 255,0.75));
     width: 100%;
     position: absolute;
     bottom: 0;
 }
 .listItemButtons{
-  
+    padding: 3px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around  
 }
