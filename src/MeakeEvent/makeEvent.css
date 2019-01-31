@@ -16,14 +16,16 @@
         height:400px;
        object-fit: contain
     }
-    .title{
-    background-image: linear-gradient(to top,white,rgb(255, 255, 255,0.90));
-    width: 300px;
-    position: absolute;
-    bottom: -20px;
-    height: 35%;
-    align-content: flex-end
-    }   
+    .addTitle{
+        background-image: linear-gradient(to top,white,rgb(255, 255, 255,0.90));
+        width: 300px;
+        position: absolute;
+        bottom: 40px;
+        height: 30px;
+        align-content: flex-end;
+
+        }   
+    
 .infoContainer{
     grid-area: b;
     display: flex;
@@ -33,8 +35,19 @@
 
     width:40vw;
 }
+    .descStyle{
+        width:30vw;
+        height: 20vh;
+        word-break: break-all;
+    }
 .mapContainer{
     margin-right: 10vw;
-
     width:40vw;
+}
+    .imgUrlInput{
+        width:300px;
+    }
+textarea{
+    resize: none
+
 }

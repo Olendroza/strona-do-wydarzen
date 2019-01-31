@@ -45,7 +45,6 @@ export class DisplayEvent extends Component{
         eventPlace: src.eventPlace,
         desc: src.desc,
         imgSrc:src.imgSrc,
-        style:styles
         }
         return newState
         }

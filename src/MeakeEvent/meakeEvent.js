@@ -3,7 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {LocationSearchInput} from './locationSuggest.js'
-
+import styles from './makeEvent.css'
 
 function formatDate(d){
     return d.substring(0,10)
@@ -132,44 +132,41 @@ export class MeakeEvent extends Component{
         
     render(){
         return(
-            <div style={this.state.style.DisplayEventStyles}>
-                <div style={this.state.style.upperBox}> 
-                  <AddTextData hei='5vh'style={this.state.style.TitleStyles} name={this.state.title} onSubmit={this.handleTitleSubmission}/>
-                  <div>
-                    <AddTextData style={this.state.style.TitleStyles} name={this.state.organizer} onSubmit={this.handleOrganizerSubmission}/>
-                    Kategoria <Category onChange={this.handleCategoryChange}/> <br/>
-                    Od <PickDate onChange={this.handleBeginDateChange} date={this.state.beginDate}/>  do <PickDate onChange={this.handleEndDateChange}date={this.state.endDate}/>
-                  </div>
 
-                  
-                </div>
-                <div style={this.state.style.bottomBox}>
-                    <div style={{ width:'100vw'}}>
+            <div className='container'>
+            <div className='imageDiv'>
+            
+            <Image className='image'src = {this.state.imgSrc}/>
+            <AddTextData className='addTitle' name={this.state.title} onSubmit={this.handleTitleSubmission}/>
+
+            </div>
+            <div className='infoContainer'>
+            <div className='descDiv'>
+                <AddTextData style={this.state.style.TitleStyles} name={this.state.organizer} onSubmit={this.handleOrganizerSubmission}/>
+                Kategoria <Category onChange={this.handleCategoryChange}/> <br/>
+                Od <PickDate onChange={this.handleBeginDateChange} date={this.state.beginDate}/>  do <PickDate onChange={this.handleEndDateChange}date={this.state.endDate}/>
+                <AddTextData className='descStyle' style={this.state.style.DescriptionStyles} name={this.state.desc} onSubmit={this.handleDescSubmission}/>
+            
+
+
                             {
-                            this.state.imageVisibility
-                            ?
-                                <Image src = {this.state.imgSrc}/>
-                                : <Map center={this.props.eventPlace} title={this.props.title}/>
-                            }
-                            <AddTextData style={this.state.style.TitleStyles} name={this.state.imgSrc} onSubmit={this.handleImgSrcSubmission}/>     
-                                <LocationSearchInput
-                                handleSelect={this.handleLocationSelect} 
-                                value={'Chorzów'}
-                                onChange={value => this.setState({ value })}/> 
-                    </div>
-                    
-                    <div style={{width: '100vw'}}>   
-                        <AddTextData hei='35vh' style={this.state.style.DescriptionStyles} name={this.state.desc} onSubmit={this.handleDescSubmission}/>
-                    </div>
-                    </div>
-                    {
                                 this.state.editionMode?
-                                <MeakeButton style={{alignSelf:'flex-end'}} onClick={this.handleEventSave} value='Save event'/>
+                                <MeakeButton  onClick={this.handleEventSave} value='Save event'/>
                                 :
-                                <MeakeButton style={{alignSelf:'flex-end'}} onClick={this.handleMeakeEventSubmisson} value='Meake event'/>
+                                <MeakeButton  onClick={this.handleMeakeEventSubmisson} value='Meake event'/>
                             }
-                </div>
-                           
+            </div>
+            <div className='mapContainer'>
+            Dodaj adres obrazu:<AddTextData className='imgUrlInput' name={this.state.imgSrc} onSubmit={this.handleImgSrcSubmission}/>     
+            Wybierz miejsce wydarzenia:
+            <LocationSearchInput handleSelect={this.handleLocationSelect} 
+                                 value={'Chorzów'}
+                                 onChange={value => this.setState({ value })}/> 
+                            
+                            
+            </div>               
+            </div>
+            </div>
         );
     }
 }
@@ -207,13 +204,13 @@ class AddTextData extends Component{
     }
     render(){
         return(
-            <form style={{display:'flex', justifyContent:'center'}} onBlur={this.handleSumbit}>
-                <textarea style={{height:this.props.hei,wordBreak: 'break-word' ,width: '70%', margin:10}} 
+            <div  onBlur={this.handleSumbit}>
+                <textarea  className={this.props.className}
                 type='text'
                 value={this.state.value}
                 onChange={this.handleChange}
                 onClick={this.handleClick}/>
-            </form>
+            </div>
         );
     }
 }
@@ -313,8 +310,8 @@ class Map extends Component{
 
 class Image extends Component{
     render(){
-        return( <div><img  width='200px' height='200px' src={this.props.src} alt='no image' />
-        </div> )
+        return( <img  className={this.props.className} src={this.props.src} alt='no image' />
+         )
     }
 }
 
