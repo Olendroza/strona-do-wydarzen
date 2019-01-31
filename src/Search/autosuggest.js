@@ -72,7 +72,7 @@ import Autosuggest from 'react-autosuggest';
       };
   
       return (
-        <Autosuggest
+        <Autosuggest 
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}

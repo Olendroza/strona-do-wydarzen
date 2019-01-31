@@ -63,7 +63,7 @@ function formatDate(d){
                     beginDate={formatDate(element.beginDate)}
                     categoty={element.category}/>)
             });
-            return <div>{searchListItems}</div> 
+            return <div className='eventContainer'>{searchListItems}</div> 
         }
     mutateList(string){
         if(string!==''){
@@ -162,15 +162,18 @@ function formatDate(d){
                 <Suggest  
                 eventListArray={this.props.eventListArray}
                             mutateList={this.mutateList}/>
-                            <button onClick={this.sortListAlphabetically} >Alfabetycznie</button>
-                            <button onClick={this.sortListByCategory} >katogoria</button>
-                            <button onClick={this.sortListByDate} >data</button>
+                            {
+                                this.props.showButtons ? 
+                                <div><button onClick={this.sortListAlphabetically} >Alfabetycznie</button>
+                                <button onClick={this.sortListByCategory} >katogoria</button>
+                                <button onClick={this.sortListByDate} >data</button>
+                                </div>
+                                : <div></div>
+                            } 
 
 
                             </div>
-                <div className='eventContainer'>
                  {this.getDataFromLocalStorage()}
-                </div>
                 
         </div>
         )
@@ -207,16 +210,15 @@ class ListItem extends Component{
       
       render () {
         return (
-          <div >
-            <div style={this.state.style} onClick={this.handleClick} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+          <div className='listItem'>
+            <div  onClick={this.handleClick} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
                 {this.props.title}<br/>
                 {this.props.beginDate} <br/>
                 {this.props.categoty} <br/>
-                moj index to {this.props.elementIndex}
             </div>
-            <div  style={{padding:5,height:50,display:'flex', justifyContent: 'space-between'}}>
-            <button style={{padding:5,margin: 5,height:'36px',width:100}} onClick={this.handleEditClick}>Edit</button>
-            <button style={{padding:5,margin: 5,height:'36px',width: 100}} onClick={this.handleDeleteClick}>Delete</button>
+            <div  >
+            <button  onClick={this.handleEditClick}>Edit</button>
+            <button  onClick={this.handleDeleteClick}>Delete</button>
             </div>
         </div>
     )
@@ -225,11 +227,11 @@ class ListItem extends Component{
 }
 
 let ListItemStyles= {
-    background: 'white',
+    background: 'green',
     padding:15,
     border:'solid',
      borderWidth: '2',display:'flex',
-     width:'30vw',
+     width:'100px',
      justifyContent: 'space-between'
 }
 let ListItemStylesClicked= {
@@ -237,7 +239,7 @@ let ListItemStylesClicked= {
     padding:15,
     border:'solid',
      borderWidth: '2',display:'flex',
-     width:'30vw',
+     width:'100px',
      justifyContent: 'space-between'
 }
 let DisplayEventStyles = {

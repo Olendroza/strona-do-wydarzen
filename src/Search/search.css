@@ -1,9 +1,31 @@
 .container{
-
+    margin:auto;
+    display: grid;
+    grid-template-areas: "a"
+                         "b";
+    
 }
 .topArea{
+    grid-area: a;
+    margin-left: 10vw;
 
 }
+
 .eventContainer{
+    margin-left: 10vw;
+    grid-area: b;
     background: blue;
+    width:60vw;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.listItem{
+    border:solid;
+    margin:10px;
+    height: 200px;
+    width: 200px;
+
 }

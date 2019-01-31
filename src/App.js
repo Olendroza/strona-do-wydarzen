@@ -195,6 +195,7 @@ class App extends Component {
                             handleEventEdition={this.handleEventEdition}
                             initialSorting = {this.state.listInitialSorting}
                             searchingPlace = {this.state.searchingPlace}
+                            showButtons={false}
                           />
     let mainPageComponentBlock = <MainPageComponent handleSelect={this.handleInintialSortingChoise}/>
     let rightBoxContent
