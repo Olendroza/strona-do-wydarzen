@@ -211,7 +211,9 @@ console.log('state'  + this.state.rightBoxContent)
             break;
       case 'createEvent':
             rightBoxContent=meakeEventBlock;
-            console.log('estem');
+            break;
+      case 'displayEvent':
+            rightBoxContent=displayEventBlock;
             break;
 
     }
