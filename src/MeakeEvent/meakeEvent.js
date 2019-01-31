@@ -26,7 +26,6 @@ export class MeakeEvent extends Component{
             localChange:false,
             index : '',
 
-            style : normalViewStyles
             }
         this.handleTitleSubmission = this.handleTitleSubmission.bind(this)
         this.handleOrganizerSubmission = this.handleOrganizerSubmission.bind(this)
@@ -49,15 +48,8 @@ export class MeakeEvent extends Component{
           if(state.localChange){
               return{localChange:false}
           }
-          else{
-              let styles;
+          else{  
               let imgSrc
-            if(props.view===0)
-                styles = normalViewStyles
-            else
-                styles = smallScreenViewStyles
-
-
 
             if(props.editingEvent.imgSrc==='Add image source'){
                 imgSrc='https://www.freeiconspng.com/uploads/no-image-icon-6.png'
@@ -76,7 +68,6 @@ export class MeakeEvent extends Component{
             imgSrc:imgSrc,
             editionMode:props.editingEvent.editionMode,
             index: props.editingEvent.index,
-            style: styles
            }
           }
         }
@@ -142,10 +133,10 @@ export class MeakeEvent extends Component{
             </div>
             <div className='infoContainer'>
             <div className='descDiv'>
-                <AddTextData style={this.state.style.TitleStyles} name={this.state.organizer} onSubmit={this.handleOrganizerSubmission}/>
+                <AddTextData  name={this.state.organizer} onSubmit={this.handleOrganizerSubmission}/>
                 Kategoria <Category onChange={this.handleCategoryChange}/> <br/>
                 Od <PickDate onChange={this.handleBeginDateChange} date={this.state.beginDate}/>  do <PickDate onChange={this.handleEndDateChange}date={this.state.endDate}/>
-                <AddTextData className='descStyle' style={this.state.style.DescriptionStyles} name={this.state.desc} onSubmit={this.handleDescSubmission}/>
+                <AddTextData className='descStyle'  name={this.state.desc} onSubmit={this.handleDescSubmission}/>
             
 
 
@@ -285,7 +276,7 @@ class Map extends Component{
       render() {
         return (
           // Important! Always set the container height explicitly
-          <div style={this.state.style.MapStyles}>
+          <div style={{width:200, height:200}}>
             <GoogleMapReact
               bootstrapURLKeys={{ key: 'AIzaSyAyesbQMyKVVbBgKVi2g6VX7mop2z96jBo' }}
               defaultCenter={this.props.center}
@@ -335,80 +326,5 @@ render(){
 
 }
 
-
-let normalViewStyles ={
-    DisplayEventStyles : {
-        width:'49vw',
-        maxHeight:'600px',
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-    },
-    TitleStyles:{
-        wordBreak: 'break-all',
-        width: '30vw',
-    },
-
-    MapStyles:{
-        height: '200px',
-        width: '300px',
-        padding: 15
-    },
-    DescriptionStyles:{
-        padding: 15,
-        wordBreak: 'break-word',
-        background: 'white'
-    },
-    upperBox:{
-        width:'50vw', 
-        flexWrap : 'wrap', 
-        display:'flex',
-        justifyContent:'space-between' 
-    },
-    bottomBox:{
-        display:'flex',
-        width:'100%', 
-    }
-}
-
-let smallScreenViewStyles ={
-    DisplayEventStyles : {
-        width:'100vw',
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        
-    },
-    TitleStyles:{
-        wordBreak: 'break-all',
-        width: '30vw',
-    },
-
-    MapStyles:{
-        height: '200px',
-        width: '300px',
-        padding: 15
-    },
-    DescriptionStyles:{
-        padding: 15,
-        wordBreak: 'break-word',
-        background: 'white',
-        width: '100%'
-    },
-    upperBox:{
-        width:'100vw',
-        flexWrap : 'wrap', 
-        display:'flex',
-        justifyContent:'space-between',
-    },
-    bottomBox:{
-        display:'flex',
-        flexDirection:'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width:'100%', 
-        background:'red'
-    }
-}
 
 
