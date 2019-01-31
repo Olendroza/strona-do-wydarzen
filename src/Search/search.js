@@ -221,7 +221,6 @@ class ListItem extends Component{
         </div>
     )
 }
-
 }
 
 

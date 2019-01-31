@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import styles from './displayEvent.css'
 
 
 function formatDate(d){
@@ -19,8 +20,7 @@ export class DisplayEvent extends Component{
         eventPlace: {lat: 0, lng:0},
         desc: '---',
         imgSrc:'',
-    
-        style: normalViewStyles}
+    }
         this.handleImageSwitch = this.handleImageSwitch.bind(this);
         //this.changeDispalyedEvent = this.changeDispalyedEvent.bind(this);
     }
@@ -33,11 +33,7 @@ export class DisplayEvent extends Component{
         else{
         if(JSON.parse(localStorage.getItem('event'+props.displayedEvent))!== null ){
         let src = JSON.parse(localStorage.getItem('event'+props.displayedEvent))
-        let styles;
-        if(props.view===0)
-            styles = normalViewStyles
-        else
-            styles = smallScreenViewStyles
+        
 
         let newState ={
         imageVisibility: src.imageVisibility,
@@ -64,8 +60,7 @@ export class DisplayEvent extends Component{
                 eventPlace: {lat: 0, lng:0},
                 desc: '---',
                 imgSrc:'',
-            
-                style: normalViewStyles}
+            }
         }
     }
     }
@@ -76,36 +71,29 @@ export class DisplayEvent extends Component{
     }
     render(){
         return(
-            <div> 
-            <div style={this.state.style.DisplayEventStyles}>
-                <div style={this.state.style.upperBox}>
-                  <Title style={this.state.style.TitleStyles} name={this.state.title}/>
-                  <div>
-                  <Organizer  organizer={this.state.organizer}/>
-                  <Category category={this.state.category}/> 
-                  <EventDate  begin={formatDate(this.state.beginDate)} end={formatDate(this.state.endDate)}/> 
-                  </div>
-                </div>
-                <div style={this.state.style.bottomBox}>
-                <div style={{display:'flex',flexDirection:'column',width:'150px',height:'300px',padding:15}}>
-                    <div style ={{height:'200px', width:'100%'}}>
-                  {
-                    !this.state.imageVisibility
-                    ?
-                        <Image src = {this.state.imgSrc}/>
-                        : <Map center={this.state.eventPlace} title={this.state.title}/>
-                 }
-                   </div>
-                   <ImageSwitcher  style={{height:5}} name={this.state.imageVisibility ? 'Obrazek':'Mapa'} handleClick={this.handleImageSwitch}/>
-
-                </div>
-                <div style={{paddingLeft: '50px'}}>
-                 <Description  description={this.state.desc}/>
-                 </div>
-                </div>
-                 
+            <div className='container'>
+            <div className='imageDiv'>
+            <Image  className='image'    src = {this.state.imgSrc}/>
+            <Title  className='title'name={this.state.title}/>
 
             </div>
+            <div className='infoContainer'>
+            <div className='descDiv'>
+                  <Organizer  organizer={this.state.organizer}/>
+                  <Category category={this.state.category}/> 
+                  <EventDate  begin={formatDate(this.state.beginDate)} end={formatDate(this.state.endDate)}/>
+                  <Description  description={this.state.desc}/>
+            
+
+
+                 
+            </div>
+            <div className='mapContainer'>
+                  <Map center={this.state.eventPlace} title={this.state.title}/>
+            </div>
+            </div>
+                 
+
             </div>
         );
     }
@@ -117,8 +105,7 @@ export class DisplayEvent extends Component{
 
 class Title extends Component{ 
     render(){
-        return <h1 style={{wordBreak: 'break-all',
-        width: '30vw'}}>{this.props.name}</h1> 
+        return <h1 className={this.props.className}>{this.props.name}</h1> 
     }
 }
 
@@ -150,8 +137,8 @@ class Map extends Component{
       render() {
         return (
           // Important! Always set the container height explicitly
-          <div style={{height: '200px',
-          width: '200px'}}>
+          <div style={{height: '300px',
+          width: '400px'}}>
             <GoogleMapReact
               bootstrapURLKeys={{ key: 'AIzaSyAlUzSR6WlgbMUJHQ12p2_c0DegJ8bAMD4' }}
               center={this.props.center}
@@ -179,7 +166,7 @@ class Map extends Component{
 
 class Image extends Component{
     render(){
-        return <img  width='200px' height='200px' src={this.props.src}/>
+        return <img  className={this.props.className} src={this.props.src}/>
     }
 }
 
@@ -200,58 +187,8 @@ class ImageSwitcher extends Component{
     
 }
 
-let normalViewStyles ={
-    DisplayEventStyles : {
-    width:'49vw',
-    display: 'flex',
-    flexWrap: 'wrap',
-    borderStyle: 'solid',
-    borderWidth: 5
-    },
-    TitleStyles:{
-    wordBreak: 'break-all',
-    width: '30vw'
-    },
-    
-    DescriptionStyles:{
-    padding: 15,
-    wordBreak: 'break-word'
-    },
-    bottomBox :{
-        display:'flex'
-    }
-}
 
-let smallScreenViewStyles ={
-    DisplayEventStyles : {
-        width:'100vw',
-        flexDirection:'column',
-        display: 'flex',
-        flexWrap: 'wrap',
-        borderStyle: 'solid',
-        borderWidth: 5,
-        alignItems: 'center',
-     justifyContent: 'center'
-        },
-        TitleStyles:{
-        wordBreak: 'break-all',
-        width: '30vw'
-        },
-        DescriptionStyles:{
-        padding: 15,
-        wordBreak: 'break-word'
-        },
-        bottomBox :{
-            width:'200px',
-            display:'flex',
-            flexDirection:'column'
-        },
-        upperBox:{
-            width:'50vw', flexWrap : 'wrap', display:'flex',alignItems: 'center',
-            justifyContent: 'center'
-        }
-        
-}
+
 
 
 

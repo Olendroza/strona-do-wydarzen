@@ -22,6 +22,8 @@
     flex-wrap: wrap;
 }
 .listItem{
+    object-fit: contain;
+
     border:solid;
     margin:10px;
     height: 200px;
