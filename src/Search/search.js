@@ -171,7 +171,9 @@ function formatDate(d){
                                 </div>
                                 : <div></div>
                             } 
-
+                            Bądź sortuj wg: <button onClick={this.sortListAlphabetically}>Alfabetu</button> 
+                            <button onClick={this.sortListByCategory}>kategorii</button> 
+                            <button onClick={this.sortListByDate}>daty</button> 
 
                             </div>
                  {this.getDataFromLocalStorage()}
@@ -192,9 +194,6 @@ class ListItem extends Component{
 
       }
       handleClick(){
-          console.log('kliknieto diva')
-        
-        console.log('wykonano diva')
        this.props.onClick(this.props.elementIndex)
       }
       handleDeleteClick(){

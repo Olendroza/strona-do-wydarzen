@@ -1,5 +1,5 @@
 .container{
-
+    grid-column: 5/-1;
     margin:auto;
     display: grid;
     grid-template-areas: "a"
@@ -43,6 +43,7 @@
 .mapContainer{
     margin-right: 10vw;
     width:40vw;
+    padding-block-end: 40px
 }
     .imgUrlInput{
         width:300px;
@@ -51,3 +52,10 @@ textarea{
     resize: none
 
 }
+
+
+@media only screen and (max-width: 600px) {
+    .container {
+      background-color: lightblue;
+    }
+  }

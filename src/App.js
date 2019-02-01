@@ -221,7 +221,7 @@ console.log('state'  + this.state.rightBoxContent)
 
     return (
       <div style={{width: '99vw'}} >
-        <div className='container'>
+        <div className='appContainer'>
         <TopBar  
                 className='navBar'
                 onCreateEventClick={this.handleCreateEventClick}
