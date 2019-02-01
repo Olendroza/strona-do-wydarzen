@@ -6,9 +6,10 @@
                          "b";
     
 }
+
 .imageDiv{
     grid-area: a;
-    margin-left: 32vw;
+    margin: auto;
     position: relative;
 }
     .image{
@@ -24,11 +25,12 @@
         height: 30px;
         align-content: flex-end;
 
-        }   
+    }   
     
 .infoContainer{
     grid-area: b;
     display: flex;
+    max-width: 80vw;
 }
 .descDiv{
     margin-left: 10vw;
@@ -40,10 +42,10 @@
         height: 20vh;
         word-break: break-all;
     }
-.mapContainer{
+.rightContainer{
     margin-right: 10vw;
-    width:40vw;
-    padding-block-end: 40px
+    max-width:35vw;
+    padding-left: 40px;
 }
     .imgUrlInput{
         width:300px;
@@ -52,10 +54,32 @@ textarea{
     resize: none
 
 }
+.mapContainer{
+    height: 300px;
+    width: 300px;
+}
 
+@media only screen and (max-width: 900px) {
+    .mapContainer{
+        height: 300px;
+        width: 400px;
+        padding-top:40px;
 
-@media only screen and (max-width: 600px) {
-    .container {
-      background-color: lightblue;
+    }
+    .descStyle{
+        width:30vw;
+        height: 20vh;
+        word-break: break-all;
+    }
+  }
+  @media only screen and (max-width: 800px) {
+    .infoContainer{
+        grid-area: b;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .rightContainer{
+        margin-right: 10vw;
+        max-width:35vw;
     }
   }

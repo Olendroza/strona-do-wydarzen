@@ -136,7 +136,7 @@ export class MeakeEvent extends Component{
             <div className='descDiv'>
                 <AddTextData  name={this.state.organizer} onSubmit={this.handleOrganizerSubmission}/>
                 Kategoria <Category onChange={this.handleCategoryChange}/> <br/>
-                Od <PickDate onChange={this.handleBeginDateChange} date={this.state.beginDate}/>  do <PickDate onChange={this.handleEndDateChange}date={this.state.endDate}/>
+                 Od <PickDate onChange={this.handleBeginDateChange} date={this.state.beginDate}/> <br/> do <PickDate onChange={this.handleEndDateChange}date={this.state.endDate}/> 
                 <AddTextData className='descStyle'  name={this.state.desc} onSubmit={this.handleDescSubmission}/>
             
 
@@ -148,9 +148,9 @@ export class MeakeEvent extends Component{
                                 <MeakeButton  onClick={this.handleMeakeEventSubmisson} value='Meake event'/>
                             }
             </div>
-            <div className='mapContainer'>
+            <div className='rightContainer'>
             Dodaj adres obrazu:<AddTextData className='imgUrlInput' name={this.state.imgSrc} onSubmit={this.handleImgSrcSubmission}/>     
-            <Map center={this.state.eventPlace} title={this.state.title}/>
+            <Map  className='mapContainer'center={this.state.eventPlace} title={this.state.title}/>
             Wybierz miejsce wydarzenia:
             <LocationSearchInput handleSelect={this.handleLocationSelect} 
                                  value={'Chorzów'}
@@ -279,8 +279,7 @@ class Map extends Component{
       render() {
         return (
           // Important! Always set the container height explicitly
-          <div style={{height: '300px',
-          width: '400px'}}>
+          <div className={this.props.className}>
             <GoogleMapReact
               bootstrapURLKeys={{ key: 'AIzaSyAlUzSR6WlgbMUJHQ12p2_c0DegJ8bAMD4' }}
               center={this.props.center}
