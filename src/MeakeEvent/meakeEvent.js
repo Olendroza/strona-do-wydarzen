@@ -133,7 +133,7 @@ export class MeakeEvent extends Component{
 
             </div>
             <div className='infoContainer'>
-            <div className='descDiv'>
+            <div className='meakeDescDiv'>
                 <AddTextData  name={this.state.organizer} onSubmit={this.handleOrganizerSubmission}/>
                 Kategoria <Category onChange={this.handleCategoryChange}/> <br/>
                  Od <PickDate onChange={this.handleBeginDateChange} date={this.state.beginDate}/> <br/> do <PickDate onChange={this.handleEndDateChange}date={this.state.endDate}/> 

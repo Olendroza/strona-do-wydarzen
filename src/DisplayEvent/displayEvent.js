@@ -76,19 +76,15 @@ export class DisplayEvent extends Component{
             <Title  className='title'name={this.state.title}/>
 
             </div>
-            <div className='infoContainer'>
-            <div className='descDiv'>
+            <div className='displayInfoContainer'>
+            <div className='displayDescDiv'>
                   <Organizer  organizer={this.state.organizer}/>
                   <Category category={this.state.category}/> 
                   <EventDate  begin={formatDate(this.state.beginDate)} end={formatDate(this.state.endDate)}/>
-                  <Description  description={this.state.desc}/>
-            
-
-
-                 
+                  <Description  description={this.state.desc}/> 
             </div>
-            <div className='mapContainer'>
-                  <Map center={this.state.eventPlace} title={this.state.title}/>
+            <div className='displayMapContainer'>
+                  <Map  className='map'center={this.state.eventPlace} title={this.state.title}/>
             </div>
             </div>
                  
@@ -136,8 +132,7 @@ class Map extends Component{
       render() {
         return (
           // Important! Always set the container height explicitly
-          <div style={{height: '300px',
-          width: '400px'}}>
+          <div className={this.props.className}>
             <GoogleMapReact
               bootstrapURLKeys={{ key: 'AIzaSyAlUzSR6WlgbMUJHQ12p2_c0DegJ8bAMD4' }}
               center={this.props.center}
