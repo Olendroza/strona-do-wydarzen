@@ -47,3 +47,32 @@
     display: flex;
     justify-content: space-around  
 }
+
+@media only screen and (max-width: 600px) {
+    .listItem{
+        object-fit: contain;
+        border:solid;
+        margin:10px;
+        height: 150px;
+        width: 150px;
+    
+        background-repeat: no-repeat;
+        background-position: center; 
+        position: relative;
+}
+.topArea{
+    grid-area: a;
+    margin:auto;
+
+}
+.eventContainer{
+    margin: 15px;
+    grid-area: b;
+    width:100vw;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+}
