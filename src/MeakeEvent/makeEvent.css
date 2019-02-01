@@ -23,6 +23,7 @@
         position: absolute;
         bottom: 40px;
         height: 30px;
+        margin: auto;
         align-content: flex-end;
 
     }   
@@ -57,12 +58,13 @@ textarea{
 .mapContainer{
     height: 300px;
     width: 300px;
+    padding: 10px;
 }
 
 @media only screen and (max-width: 900px) {
     .mapContainer{
         height: 300px;
-        width: 400px;
+        width: 300px;
         padding-top:40px;
 
     }
@@ -78,8 +80,19 @@ textarea{
         display: flex;
         flex-direction: column-reverse;
     }
+    .mapContainer{
+        height: 300px;
+        width: 300px;
+        padding-top:40px;
+
+    }
     .rightContainer{
         margin-right: 10vw;
         max-width:35vw;
+        padding-block-end: 50px;
+    }
+    .mapContainer{
+        height: 0;
+        width: 0;
     }
   }
