@@ -45,7 +45,8 @@ class App extends Component {
         editingEvent: '',
         eventListArray:[],
         isEventListVisible:true,
-        view:1    //0-normal view, 1- width<=600px
+        view:1,    //0-normal view, 1- width<=600px,
+        wiadomosciZSerwera:[]
       };
     }
     else{
@@ -81,6 +82,11 @@ class App extends Component {
 
   componentWillMount(){
   this.getEventListFromLocalStorage();
+  }
+  componentDidMount(){
+  fetch('/users')
+      .then(res=>res.json())
+      .then(res=>this.setState({wiadomosciZSerwera:res.message}))
   }
   getEventListFromLocalStorage(){
     if(localStorage.getItem('numberOfEvents')===null)
@@ -235,7 +241,9 @@ console.log('state'  + this.state.rightBoxContent)
           {rightBoxContent}
         </div>
         </div>
-
+        <div>
+          jestem wiadomoscia z serwera: {this.state.wiadomosciZSerwera}
+          </div>
       </div>
     );
   }
