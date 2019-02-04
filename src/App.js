@@ -84,7 +84,7 @@ class App extends Component {
   this.getEventListFromLocalStorage();
   }
   componentDidMount(){
-  fetch('/users')
+  fetch('/eventStorage')
       .then(res=>res.json())
       .then(res=>this.setState({wiadomosciZSerwera:res.message}))
   }
