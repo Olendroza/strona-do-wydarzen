@@ -65,7 +65,6 @@ class App extends Component {
     
     this.handleCreateEventClick=this.handleCreateEventClick.bind(this)
     this.handleDisplayEvents=this.handleDisplayEvents.bind(this)
-    this.getEventListFromLocalStorage=this.getEventListFromLocalStorage.bind(this)
     this.displayedEvent=this.handleDisplayEventChoise.bind(this)
     this.handleEventDeletion=this.handleEventDeletion.bind(this)
     this.handleEventCreation=this.handleEventCreation.bind(this)
@@ -81,23 +80,17 @@ class App extends Component {
 
 
   componentWillMount(){
-  this.getEventListFromLocalStorage();
   }
   componentDidMount(){
   fetch('/eventStorage')
       .then(res=>res.json())
-      .then(res=>this.setState({eventListArray:res.message}))
+      .then(res=>{
+        if(res.message!=='')
+        this.setState({eventListArray:res.message})
+      })
       .catch(err=>{console.log(err)})
   }
-  getEventListFromLocalStorage(){
-    if(localStorage.getItem('numberOfEvents')===null)
-      localStorage.setItem('numberOfEvents','0') 
-      let storedEvents = [];
-    for(let i=0;i<localStorage.getItem('numberOfEvents');i++)
-        storedEvents.push(JSON.parse(localStorage.getItem('event'+i))); 
 
-        this.setState({eventListArray: storedEvents})
-  }
   //server
   sendObjectToServer(obj,editionFlag){
     fetch('/users',{method:'POST',
@@ -124,9 +117,7 @@ class App extends Component {
     }
     event.title=event.title+findSameNames(titleArray,event.title)
     eventList.push(event)
-    let numberOfEvents=localStorage.getItem('numberOfEvents');
-    localStorage.setItem('event'+numberOfEvents,JSON.stringify(event));
-    localStorage.setItem('numberOfEvents',++numberOfEvents);
+
        
       this.sendObjectToServer(event,-1)
       this.setState({eventListArray:eventList})
@@ -149,12 +140,7 @@ class App extends Component {
       this.setState({displayedEvent: n-1})
     }
     console.log(storedEvents)
-    //save localstoreage --> move it to on windows close
-    localStorage.clear()
-    localStorage.setItem('numberOfEvents', numberOfEvents-1)
-    for(let i=0;i<numberOfEvents-1;i++){
-      localStorage.setItem('event'+i,JSON.stringify(storedEvents[i]))
-    }
+ 
 
   }
   handleEventEdition(n){
