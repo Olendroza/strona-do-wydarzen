@@ -9,19 +9,19 @@ router.post('/',checkFlag)
 
 
 
-function checkFlag(res){
-  if(res.body.flag===-1){         //adding new events to list
+function checkFlag(req,res){
+  if(req.body.flag===-1){         //adding new events to list
     console.log('saving at the end of file')
     fs.readFile(path,'utf8',(err,content)=>{
       let eventArray = [];
       if(content==''){
-        eventArray.push(res.body.event)
+        eventArray.push(req.body.event)
         console.log(eventArray)
         
       }
       else{
         eventArray= JSON.parse(content)
-        eventArray.push(res.body.event)
+        eventArray.push(req.body.event)
       }
       fs.writeFile(path,JSON.stringify(eventArray),()=>{
              console.log('done')
@@ -29,12 +29,12 @@ function checkFlag(res){
           })
 
   }
-  else if(res.body.flag===-2){    //deleting event; body is number of event
-    console.log('deleting event nr' + res.body.event)
+  else if(req.body.flag===-2){    //deleting event; body is number of event
+    console.log('deleting event nr' + req.body.event)
     fs.readFile(path,'utf8',(err,content)=>{
       let eventArray = [];
       eventArray= JSON.parse(content)
-      eventArray.splice(res.body.flag,1)
+      eventArray.splice(req.body.flag,1)
       fs.writeFile(path,JSON.stringify(eventArray),()=>{
         console.log('array length is now' + eventArray.length)
         })
@@ -42,17 +42,18 @@ function checkFlag(res){
     })
   }
   else{                     //editing event
-    console.log('editing event nr' + res.body.flag)
+    console.log('editing event nr' + req.body.flag)
     fs.readFile(path,'utf8',(err,content)=>{
       let eventArray = [];
       eventArray= JSON.parse(content)
-      eventArray.splice(res.body.flag,1,res.body.event)
+      eventArray.splice(req.body.flag,1,req.body.event)
       fs.writeFile(path,JSON.stringify(eventArray),()=>{
         console.log('done')
         })
       
     })
   }
+  res.json({message:'resolved'})
 }
 
 
