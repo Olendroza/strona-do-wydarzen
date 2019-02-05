@@ -23,7 +23,6 @@ function findAvibleName(eventList,eventTitle){
       repetitingTitleArray.forEach(element=>{
         numberArray.push(parseInt(element.substring(eventTitle.length+1)))   //remove prefix and # sign
       })
-      console.log('ddupa')
       numberArray.sort((a,b)=>{return a-b})   //sort number array
       let found=false
       let i=0
@@ -142,12 +141,16 @@ class App extends Component {
   handleEventSave(event,n){
     let eventArray = this.state.eventListArray
     eventArray[n]=event
-    this.sendObjectToServer(event,n)
 
-    //this.setState({eventListArray:eventArray})
+    event.title = event.title+findAvibleName(this.state.eventListArray,event.title)
+    this.sendObjectToServer(event,n)
     this.handleDisplayEventChoise(n)
   }
   handleDisplayEventChoise=(n)=>{
+    console.log('diplayed n:' +n)
+
+    if(n===-1)
+      n=0
     this.setState({rightBoxContent:'displayEvent'})
      this.setState({displayedEvent: n});
   }
@@ -183,8 +186,7 @@ class App extends Component {
                           view={this.state.view}
                           editingEvent={this.state.editingEvent}
                           />
-    let displayEventBlock = <DisplayEvent displayedEvent={this.state.displayedEvent}
-                              view={this.state.view}
+    let displayEventBlock = <DisplayEvent displayedEvent={this.state.eventListArray[this.state.displayedEvent]}
                               /> 
     let eventListBlock = <DisplayList eventListArray={this.state.eventListArray}  lista wydarzen
                           handleEventDeletion = {this.handleEventDeletion}

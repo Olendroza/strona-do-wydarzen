@@ -31,24 +31,9 @@ export class DisplayEvent extends Component{
         if(state.localChange)
             return ({localChange:false})
         else{
-        if(JSON.parse(localStorage.getItem('event'+props.displayedEvent))!== null ){
-        let src = JSON.parse(localStorage.getItem('event'+props.displayedEvent))
-        
-
-        let newState ={
-        imageVisibility: src.imageVisibility,
-        title: src.title,
-        organizer: src.organizer,
-        beginDate: src.beginDate,
-        endDate: src.endDate,
-        category: src.category,
-        eventPlace: src.eventPlace,
-        desc: src.desc,
-        imgSrc:src.imgSrc,
-        }
-        return newState
-        }
-        else{
+            if(props.displayedEvent){
+                return props.displayedEvent
+            }
             return {
                 imageVisibility: true,
                 title: 'No Title',
@@ -62,7 +47,7 @@ export class DisplayEvent extends Component{
             }
         }
     }
-    }
+    
     handleImageSwitch(){
      this.setState({imageVisibility: !this.state.imageVisibility,
     localChange:true});
