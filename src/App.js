@@ -75,6 +75,7 @@ class App extends Component {
 
 
     this.handleInintialSortingChoise = this.handleInintialSortingChoise.bind(this);
+    this.getEventListFromServer = this.getEventListFromServer.bind(this)
 
   }
 
@@ -82,16 +83,20 @@ class App extends Component {
   componentWillMount(){
   }
   componentDidMount(){
-  fetch('/eventStorage')
+    this.getEventListFromServer()
+  }
+
+  //server
+  getEventListFromServer(){
+    fetch('/eventStorage')
       .then(res=>res.json())
       .then(res=>{
         if(res.message!=='')
         this.setState({eventListArray:res.message})
       })
       .catch(err=>{console.log(err)})
-  }
 
-  //server
+  }
   sendObjectToServer(obj,editionFlag){
     fetch('/users',{method:'POST',
     method: 'POST',
@@ -126,20 +131,9 @@ class App extends Component {
      }
 
   handleEventDeletion (n){
-    let numberOfEvents = localStorage.getItem('numberOfEvents')
-    let storedEvents = this.state.eventListArray
-    console.log('splajsowany index to '+n)
-    storedEvents.splice(n,1)
-
-
-    this.setState({eventListArray: storedEvents})
-    if(n===0&&storedEvents.length!==0){
-      this.setState({displayedEvent: 0})
-    }
-    else if(n===storedEvents.length){
-      this.setState({displayedEvent: n-1})
-    }
-    console.log(storedEvents)
+   
+    this.sendObjectToServer(n,-2)
+    this.getEventListFromServer()
  
 
   }

@@ -10,7 +10,7 @@ router.post('/',checkFlag)
 
 
 function checkFlag(res){
-  if(res.body.flag===-1){
+  if(res.body.flag===-1){         //adding new events to list
     console.log('saving at the end of file')
     fs.readFile(path,'utf8',(err,content)=>{
       let eventArray = [];
@@ -29,7 +29,19 @@ function checkFlag(res){
           })
 
   }
-  else{
+  else if(res.body.flag===-2){    //deleting event; body is number of event
+    console.log('deleting event nr' + res.body.event)
+    fs.readFile(path,'utf8',(err,content)=>{
+      let eventArray = [];
+      eventArray= JSON.parse(content)
+      eventArray.splice(res.body.flag,1)
+      fs.writeFile(path,JSON.stringify(eventArray),()=>{
+        console.log('done')
+        })
+      
+    })
+  }
+  else{                     //editing event
     console.log('editing event nr' + res.body.flag)
     fs.readFile(path,'utf8',(err,content)=>{
       let eventArray = [];
