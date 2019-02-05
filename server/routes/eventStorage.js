@@ -14,9 +14,18 @@ function readFile(){
 }
 function sendFileContent(content){
     console.log('zawartosc pliku to ' + content)
-    let parsedContent = JSON.parse(content)
+    if(content!==''){
+        console.log('nie jestem pusty!')
+         content = JSON.parse(content)
+         console.log(content)
+    }
+    else{
+        console.group('wysylam pusty')
+        content =[]
+    }
+    
     router.get('/', function(req, res, next) {
-        res.json({message: parsedContent})
+        res.json({message: content})
       });
     
 }
