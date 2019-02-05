@@ -3,8 +3,8 @@ var router = express.Router();
 const fs  = require('fs');
 const path = './resources/eventList.txt';
 
-
-fs.open(path,'r',handlingErrors(readFile))
+var fileContent=[];
+//fs.open(path,'r',handlingErrors(readFile))
 
 
 
@@ -16,12 +16,12 @@ function sendFileContent(content){
     console.log('zawartosc pliku to ' + content)
     if(content!==''){
         console.log('nie jestem pusty!')
-         content = JSON.parse(content)
+         fileContent = JSON.parse(content)
          console.log(content)
     }
     else{
         console.group('wysylam pusty')
-        content =[]
+        fileContent =[]
     }
     
     router.get('/', function(req, res, next) {
@@ -30,9 +30,9 @@ function sendFileContent(content){
     
 }
 
-
-
-
+router.get('/', function(req, res, next) {
+    fs.open(path,'r',handlingErrors(readFile))
+  });
 
 //error handling
 function handlingErrors(cb){

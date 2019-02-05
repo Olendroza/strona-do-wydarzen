@@ -83,11 +83,6 @@ class App extends Component {
   componentWillMount(){
   }
   componentDidMount(){
-    this.getEventListFromServer()
-  }
-
-  //server
-  getEventListFromServer(){
     fetch('/eventStorage')
       .then(res=>res.json())
       .then(res=>{
@@ -95,6 +90,19 @@ class App extends Component {
         this.setState({eventListArray:res.message})
       })
       .catch(err=>{console.log(err)})
+  }
+
+  //server
+  getEventListFromServer(){
+    fetch('/eventStorage')
+      .then(res=>res.json())
+      .then(res=>{
+        console.log(res.message)
+          this.setState({eventListArray:res.message})
+      })
+      .then(console.log(this.state.eventListArray))
+      .catch(err=>{console.log(err)})
+
 
   }
   sendObjectToServer(obj,editionFlag){
@@ -109,7 +117,7 @@ class App extends Component {
         flag:editionFlag
     })
   })
-    .then(console.log('send'))
+    .then(console.log('send')).then(this.getEventListFromServer())
   }
   //
   
@@ -126,6 +134,7 @@ class App extends Component {
        
       this.sendObjectToServer(event,-1)
       this.setState({eventListArray:eventList})
+
       this.handleDisplayEventChoise(eventList.length-1)
 
      }
@@ -133,7 +142,6 @@ class App extends Component {
   handleEventDeletion (n){
    
     this.sendObjectToServer(n,-2)
-    this.getEventListFromServer()
  
 
   }
@@ -207,7 +215,6 @@ class App extends Component {
     let mainPageComponentBlock = <MainPageComponent handleSelect={this.handleInintialSortingChoise}/>
     let rightBoxContent
 
-console.log('state'  + this.state.rightBoxContent)
     switch(this.state.rightBoxContent){
       case 'homepage': 
             rightBoxContent=mainPageComponentBlock 
@@ -223,7 +230,6 @@ console.log('state'  + this.state.rightBoxContent)
             break;
 
     }
-    console.log(rightBoxContent)
 
     return (
       <div style={{width: '99vw'}} >
@@ -236,7 +242,7 @@ console.log('state'  + this.state.rightBoxContent)
                  view = {this.state.view}
          />
         <div className='leftContent'>jestem wiadomoscia z serwera: {this.state.wiadomosciZSerwera}
-          <button onClick={this.sendObjectToServer}> wyslij na serwer </button> 
+          <button > eventlength {this.state.eventListArray.length} </button> 
         </div>
         <div className='rightContent'>
           {rightBoxContent}
