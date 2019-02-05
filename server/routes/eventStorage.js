@@ -9,30 +9,19 @@ var fileContent=[];
 
 
 
-function readFile(){
-    fs.readFile(path,'utf8',handlingErrors(sendFileContent))    
-}
-function sendFileContent(content){
-    console.log('zawartosc pliku to ' + content)
-    if(content!==''){
-        console.log('nie jestem pusty!')
-         fileContent = JSON.parse(content)
-         console.log(content)
-    }
-    else{
-        console.group('wysylam pusty')
-        fileContent =[]
-    }
-    
-    router.get('/', function(req, res, next) {
-        res.json({message: content})
-      });
-    
-}
+router.get('/', (req, res, next) =>{
+    fs.open(path,'r',()=>{
+        fs.readFile(path,'utf8',(err,content)=>{
+            if(content==='')
+                content='[]'
+            fileContent = JSON.parse(content)
+            res.json({message: fileContent})
+        })
+    })
+})
 
-router.get('/', function(req, res, next) {
-    fs.open(path,'r',handlingErrors(readFile))
-  });
+
+
 
 //error handling
 function handlingErrors(cb){

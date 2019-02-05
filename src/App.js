@@ -83,22 +83,19 @@ class App extends Component {
   componentWillMount(){
   }
   componentDidMount(){
-    fetch('/eventStorage')
-      .then(res=>res.json())
-      .then(res=>{
-        if(res.message!=='')
-        this.setState({eventListArray:res.message})
-      })
-      .catch(err=>{console.log(err)})
+    this.getEventListFromServer()
   }
 
   //server
   getEventListFromServer(){
+    console.log('getfromServer')
     fetch('/eventStorage')
       .then(res=>res.json())
       .then(res=>{
+        console.log('message:')
         console.log(res.message)
           this.setState({eventListArray:res.message})
+
       })
       .then(console.log(this.state.eventListArray))
       .catch(err=>{console.log(err)})
@@ -117,7 +114,10 @@ class App extends Component {
         flag:editionFlag
     })
   })
-    .then(console.log('send')).then(this.getEventListFromServer())
+    .then(()=>{console.log('send')
+                console.log('server')
+        this.getEventListFromServer()})
+    .catch(err=>{console.log(err)})
   }
   //
   
@@ -142,6 +142,7 @@ class App extends Component {
   handleEventDeletion (n){
    
     this.sendObjectToServer(n,-2)
+    this.getEventListFromServer()
  
 
   }

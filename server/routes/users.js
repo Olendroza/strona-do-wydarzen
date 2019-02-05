@@ -36,7 +36,7 @@ function checkFlag(res){
       eventArray= JSON.parse(content)
       eventArray.splice(res.body.flag,1)
       fs.writeFile(path,JSON.stringify(eventArray),()=>{
-        console.log('done')
+        console.log('array length is now' + eventArray.length)
         })
       
     })
