@@ -9,14 +9,14 @@ fs.open(path,'r',handlingErrors(readFile))
 
 
 
-function readFile(file){
+function readFile(){
     fs.readFile(path,'utf8',handlingErrors(sendFileContent))    
 }
 function sendFileContent(content){
     console.log('zawartosc pliku to ' + content)
-
+    let parsedContent = JSON.parse(content)
     router.get('/', function(req, res, next) {
-        res.json({message: content})
+        res.json({message: parsedContent})
       });
     
 }

@@ -86,7 +86,8 @@ class App extends Component {
   componentDidMount(){
   fetch('/eventStorage')
       .then(res=>res.json())
-      .then(res=>this.setState({wiadomosciZSerwera:res.message}))
+      .then(res=>this.setState({eventListArray:res.message}))
+      .catch(err=>{console.log(err)})
   }
   getEventListFromLocalStorage(){
     if(localStorage.getItem('numberOfEvents')===null)
@@ -96,7 +97,23 @@ class App extends Component {
         storedEvents.push(JSON.parse(localStorage.getItem('event'+i))); 
 
         this.setState({eventListArray: storedEvents})
-      }
+  }
+  //server
+  sendObjectToServer(obj,editionFlag){
+    fetch('/users',{method:'POST',
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        event:obj,
+        flag:editionFlag
+    })
+  })
+    .then(console.log('send'))
+  }
+  //
   
   handleEventCreation(event){
      let eventList = this.state.eventListArray
@@ -110,10 +127,11 @@ class App extends Component {
     let numberOfEvents=localStorage.getItem('numberOfEvents');
     localStorage.setItem('event'+numberOfEvents,JSON.stringify(event));
     localStorage.setItem('numberOfEvents',++numberOfEvents);
-
-
+       
+      this.sendObjectToServer(event,-1)
       this.setState({eventListArray:eventList})
       this.handleDisplayEventChoise(eventList.length-1)
+
      }
 
   handleEventDeletion (n){
@@ -140,10 +158,10 @@ class App extends Component {
 
   }
   handleEventEdition(n){
-    console.log('n to' +n)
     let editingEvent = this.state.eventListArray[n]
     editingEvent.editionMode  = true
     editingEvent.index = n
+
     this.setState({editingEvent: editingEvent,
       rightBoxContent:'createEvent'})
   }
@@ -152,6 +170,8 @@ class App extends Component {
     console.log('n to' +n)
     let eventArray = this.state.eventListArray
     eventArray[n]=event
+    this.sendObjectToServer(event,n)
+
     this.setState({eventListArray:eventArray})
     this.handleDisplayEventChoise(n)
   }
@@ -235,14 +255,15 @@ console.log('state'  + this.state.rightBoxContent)
                  onDisplayListClick = {this.handleDisplayList}
                  view = {this.state.view}
          />
-        <div className='leftContent'>left content conte
+        <div className='leftContent'>jestem wiadomoscia z serwera: {this.state.wiadomosciZSerwera}
+          <button onClick={this.sendObjectToServer}> wyslij na serwer </button> 
         </div>
         <div className='rightContent'>
           {rightBoxContent}
         </div>
         </div>
         <div>
-          jestem wiadomoscia z serwera: {this.state.wiadomosciZSerwera}
+          
           </div>
       </div>
     );
