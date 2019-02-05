@@ -12,7 +12,9 @@ var fileContent=[];
 router.get('/', (req, res, next) =>{
     fs.open(path,'r',()=>{
         fs.readFile(path,'utf8',(err,content)=>{
-            if(content==='')
+            if(err)
+                console.log(err)
+            else if(content==='')
                 content='[]'
             fileContent = JSON.parse(content)
             res.json({message: fileContent})
