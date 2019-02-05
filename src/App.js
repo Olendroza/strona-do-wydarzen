@@ -5,32 +5,45 @@ import {DisplayList} from './Search/search'
 import {MainPageComponent} from './mainPageComponent/mainPageComponent'
 import styles from './App.css'
 
-function findSameNames(array,s){
-  let ar =[]
-  
-  for(let i=0;i<array.length;i++){
-      if(array[i].includes(s))
-          ar.push(array[i])
-  }
-  if(ar.length===0)
-      return ''
-  if(ar.length===1)
-      return '#2'
-  else{
-    console.log('jestem w elsie')
-    let numbersArray =[]
-      for(let i=0;i<ar.length;i++){
-        if(ar[i]===s)
-          ar.splice(i,1)
-      }
-      
-      ar.forEach(element=>{
-        numbersArray.push(element[element.length-1])
-      })
-      return '#'+(Math.max.apply(null,numbersArray)+1)
 
+function findAvibleName(eventList,eventTitle){
+  let eventListTileArray =[]
+  let repetitingTitleArray=[]
+  let numberArray =[]
+  eventList.forEach(element => {
+    eventListTileArray.push(element.title) //get title array
+  });
+  eventListTileArray.forEach(element=>{
+    if(element.includes(eventTitle))
+      repetitingTitleArray.push(element)    //get arraay made only of strings contain eventTtile
+  }) 
+  if(repetitingTitleArray.length!==0){
+    repetitingTitleArray.splice(eventListTileArray.indexOf(eventTitle),1) //get rid of evemtTitle
+    if(repetitingTitleArray.length!==0){
+      repetitingTitleArray.forEach(element=>{
+        numberArray.push(parseInt(element.substring(eventTitle.length+1)))   //remove prefix and # sign
+      })
+      console.log('ddupa')
+      numberArray.sort((a,b)=>{return a-b})   //sort number array
+      let found=false
+      let i=0
+      while(found===false){
+        i++
+        found=true
+        numberArray.forEach(number=>{
+          if(number===i)
+            found =false
+        })  
+      }
+      return('#'+i)
+    }
+    else  
+      return '#1'
   }
-      
+  else
+    return ''
+
+
 }
 
 
@@ -39,25 +52,17 @@ class App extends Component {
     super(props) 
     if(window.innerWidth<600){
       this.state= {
-        itemShown: 0,
-        updateList: false,
         displayedEvent:0,
         editingEvent: '',
         eventListArray:[],
-        isEventListVisible:true,
-        view:1,    //0-normal view, 1- width<=600px,
-        wiadomosciZSerwera:[]
       };
     }
     else{
       this.state= {
         rightBoxContent: 'homepage',
-        updateList: false,
         displayedEvent:0,
         editingEvent: '',
         eventListArray:[],
-        isEventListVisible:true,
-        view:0,    //0-normal view, 1- width<=600px
         listInitialSorting:0
       };
     }
@@ -88,16 +93,12 @@ class App extends Component {
 
   //server
   getEventListFromServer(){
-    console.log('getfromServer')
     fetch('/eventStorage')
       .then(res=>res.json())
       .then(res=>{
-        console.log('message:')
-        console.log(res.message)
           this.setState({eventListArray:res.message})
 
       })
-      .then(console.log(this.state.eventListArray))
       .catch(err=>{console.log(err)})
 
 
@@ -114,37 +115,20 @@ class App extends Component {
         flag:editionFlag
     })
   })
-    .then(()=>{console.log('send')
-                console.log('server')
-        this.getEventListFromServer()})
-    .catch(err=>{console.log(err)})
+    .then(()=>{this.getEventListFromServer()})
+    .catch((err)=>console.log(err))
   }
   //
   
   handleEventCreation(event){
-     let eventList = this.state.eventListArray
-      let titleArray =[]
-    for(let i=0;i<eventList.length;i++)
-    {
-      titleArray.push(eventList[i].title)
-    }
-    event.title=event.title+findSameNames(titleArray,event.title)
-    eventList.push(event)
-
-       
+      event.title = event.title+findAvibleName(this.state.eventListArray,event.title)
       this.sendObjectToServer(event,-1)
-      this.setState({eventListArray:eventList})
-
-      this.handleDisplayEventChoise(eventList.length-1)
+      this.handleDisplayEventChoise(this.state.eventListArray.length-1)
 
      }
 
   handleEventDeletion (n){
-   
     this.sendObjectToServer(n,-2)
-    this.getEventListFromServer()
- 
-
   }
   handleEventEdition(n){
     let editingEvent = this.state.eventListArray[n]
@@ -156,12 +140,11 @@ class App extends Component {
   }
 
   handleEventSave(event,n){
-    console.log('n to' +n)
     let eventArray = this.state.eventListArray
     eventArray[n]=event
     this.sendObjectToServer(event,n)
 
-    this.setState({eventListArray:eventArray})
+    //this.setState({eventListArray:eventArray})
     this.handleDisplayEventChoise(n)
   }
   handleDisplayEventChoise=(n)=>{
@@ -183,8 +166,6 @@ class App extends Component {
   }
 
   handleInintialSortingChoise(choise,lat,lng){
-    console.log(choise)
-
     this.setState({rightBoxContent: 'list',
                     listInitialSorting:choise,
                     searchingPlace: {lat:lat,lng:lng}
@@ -242,8 +223,8 @@ class App extends Component {
                  onDisplayListClick = {this.handleDisplayList}
                  view = {this.state.view}
          />
-        <div className='leftContent'>jestem wiadomoscia z serwera: {this.state.wiadomosciZSerwera}
-          <button > eventlength {this.state.eventListArray.length} </button> 
+        <div className='leftContent'>
+        <button onClick={findAvibleName(this.state.eventListArray,'add')}> addd </button>
         </div>
         <div className='rightContent'>
           {rightBoxContent}
