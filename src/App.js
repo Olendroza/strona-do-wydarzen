@@ -108,7 +108,12 @@ class App extends Component {
   //
   
   handleEventCreation(event){
-      event.title = event.title+findAvibleName(this.state.eventListArray,event.title)
+    let eventArray = this.state.eventListArray;
+      if(event.editionMode===true){
+        eventArray.splice(eventArray.indexOf(event),1)
+        console.log(eventArray)
+      }
+      event.title = event.title+findAvibleName(eventArray,event.title)
       this.sendObjectToServer(event,-1)
       this.handleDisplayEventChoise(this.state.eventListArray.length)
 
@@ -123,13 +128,17 @@ class App extends Component {
     editingEvent.index = n
 
     this.setState({editingEvent: editingEvent,
-      rightBoxContent:'createEvent'})
+                    rightBoxContent:'createEvent'})
   }
   handleEventSave(event,n){
     let eventArray = this.state.eventListArray
     eventArray[n]=event
-
-    event.title = event.title+findAvibleName(this.state.eventListArray,event.title)
+    if(event.editionMode===true){
+      eventArray.splice(eventArray.indexOf(event),1)
+      console.log(eventArray)
+    }
+    
+    event.title = event.title+findAvibleName(eventArray,event.title)
     this.sendObjectToServer(event,n)
     this.handleDisplayEventChoise(n)
   }
