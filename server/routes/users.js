@@ -34,7 +34,7 @@ function checkFlag(req,res){
     fs.readFile(path,'utf8',(err,content)=>{
       let eventArray = [];
       eventArray= JSON.parse(content)
-      eventArray.splice(req.body.flag,1)
+       eventArray.splice(req.body.event,1)
       fs.writeFile(path,JSON.stringify(eventArray),()=>{
         console.log('array length is now' + eventArray.length)
         })
