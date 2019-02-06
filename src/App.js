@@ -49,14 +49,7 @@ function findAvibleName(eventList,eventTitle){
 class App extends Component {
   constructor(props){
     super(props) 
-    if(window.innerWidth<600){
-      this.state= {
-        displayedEvent:0,
-        editingEvent: '',
-        eventListArray:[],
-      };
-    }
-    else{
+
       this.state= {
         rightBoxContent: 'homepage',
         displayedEvent:0,
@@ -64,7 +57,6 @@ class App extends Component {
         eventListArray:[],
         listInitialSorting:0
       };
-    }
     
     
     this.handleCreateEventClick=this.handleCreateEventClick.bind(this)
@@ -83,13 +75,9 @@ class App extends Component {
 
   }
 
-
-  componentWillMount(){
-  }
   componentDidMount(){
     this.getEventListFromServer()
   }
-
   //server
   getEventListFromServer(){
     fetch('/eventStorage')
@@ -122,11 +110,11 @@ class App extends Component {
   handleEventCreation(event){
       event.title = event.title+findAvibleName(this.state.eventListArray,event.title)
       this.sendObjectToServer(event,-1)
-      this.handleDisplayEventChoise(this.state.eventListArray.length-1)
+      this.handleDisplayEventChoise(this.state.eventListArray.length)
 
      }
-
   handleEventDeletion (n){
+    console.log('usuwam'+n)
     this.sendObjectToServer(n,-2)
   }
   handleEventEdition(n){
@@ -137,7 +125,6 @@ class App extends Component {
     this.setState({editingEvent: editingEvent,
       rightBoxContent:'createEvent'})
   }
-
   handleEventSave(event,n){
     let eventArray = this.state.eventListArray
     eventArray[n]=event
@@ -146,6 +133,8 @@ class App extends Component {
     this.sendObjectToServer(event,n)
     this.handleDisplayEventChoise(n)
   }
+
+
   handleDisplayEventChoise=(n)=>{
     console.log('diplayed n:' +n)
 
@@ -154,7 +143,6 @@ class App extends Component {
     this.setState({rightBoxContent:'displayEvent'})
      this.setState({displayedEvent: n});
   }
-
   handleCreateEventClick=()=>{
       this.setState({editingEvent: defaultEvent,
                     rightBoxContent:'createEvent'})
@@ -168,6 +156,7 @@ class App extends Component {
     this.setState({rightBoxContent: 'list'})
   }
 
+  
   handleInintialSortingChoise(choise,lat,lng){
     this.setState({rightBoxContent: 'list',
                     listInitialSorting:choise,
@@ -226,7 +215,6 @@ class App extends Component {
                  view = {this.state.view}
          />
         <div className='leftContent'>
-        <button onClick={findAvibleName(this.state.eventListArray,'add')}> addd </button>
         </div>
         <div className='rightContent'>
           {rightBoxContent}
