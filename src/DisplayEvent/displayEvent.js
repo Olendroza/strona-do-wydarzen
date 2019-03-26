@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import styles from './displayEvent.css'
+import { Grid } from '@material-ui/core';
 
 
 function formatDate(d){
@@ -55,25 +56,30 @@ export class DisplayEvent extends Component{
     }
     render(){
         return(
+            
             <div className='container'>
-            <div className='imageDiv'>
-            <Image  className='image'    src = {this.state.imgSrc}/>
-            <Title  className='title'name={this.state.title}/>
 
-            </div>
-            <div className='displayInfoContainer'>
-            <div className='displayDescDiv'>
-                  <Organizer  organizer={this.state.organizer}/>
-                  <Category category={this.state.category}/> 
-                  <EventDate  begin={formatDate(this.state.beginDate)} end={formatDate(this.state.endDate)}/>
-                  <Description  description={this.state.desc}/> 
-            </div>
-            <div className='displayMapContainer'>
-                  <Map  className='map'center={this.state.eventPlace} title={this.state.title}/>
-            </div>
-            </div>
-                 
-
+            <Grid container >
+            <Grid   item xs={12}><h1>{this.state.title}</h1> </Grid>
+            <Grid  container item xs={3}>
+                <Grid container>
+                <Grid item>Miejsce</Grid>
+                <Grid item><Image  className='image'    src = {this.state.imgSrc}/></Grid>
+                </Grid>
+            </Grid>
+            <Grid container style={{flexDirection:'column'}}item xs={6}>
+            <Grid item xs><Organizer  organizer={this.state.organizer}/>
+            <Category category={this.state.category}/>
+            <EventDate  begin={formatDate(this.state.beginDate)} end={formatDate(this.state.endDate)}/>
+            </Grid>
+            <Grid item xs> Opis wydarzenia: <br/><Description  description={this.state.desc}/> </Grid>
+             </Grid>
+            <Grid container item xs={3}>
+            <Grid item>Miejsce</Grid>
+            <Grid item><Map  className='map'center={this.state.eventPlace} title={this.state.title}/></Grid>
+                
+             </Grid>
+            </Grid>
             </div>
         );
     }
@@ -85,7 +91,7 @@ export class DisplayEvent extends Component{
 
 class Title extends Component{ 
     render(){
-        return <h1 className={this.props.className}>{this.props.name}</h1> 
+        return <p className={this.props.className}>{this.props.name}</p> 
     }
 }
 
