@@ -1,35 +1,11 @@
 import React, { Component } from 'react';
 import {DisplayEvent} from './DisplayEvent/displayEvent';
-import MeakeEvent from './MeakeEvent/meakeEvent';
+import {MeakeEvent} from './MeakeEvent/meakeEvent';
 import {DisplayList} from './Search/search'
-import {MainPageComponent} from './mainPageComponent/mainPageComponent';
+import {MainPageComponent} from './mainPageComponent/mainPageComponent'
+import styles from './App.css'
 
 
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
-import Paper from '@material-ui/core/Paper';
-import classNames from 'classnames';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import CameraIcon from '@material-ui/icons/PhotoCamera';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import {withTheme } from '@material-ui/core/styles';
-
-
-
-const partyIcon = require('./mainPageComponent/party.png');
-const backgroundVid = require('./mainPageComponent/lb.mp4');
 function findAvibleName(eventList,eventTitle){
   let eventListTileArray =[]
   let repetitingTitleArray=[]
@@ -69,6 +45,7 @@ function findAvibleName(eventList,eventTitle){
 
 }
 
+
 class App extends Component {
   constructor(props){
     super(props) 
@@ -78,11 +55,9 @@ class App extends Component {
         displayedEvent:0,
         editingEvent: '',
         eventListArray:[],
-        listInitialSorting:0,
-        //material ui
-        spacing: '16',
+        listInitialSorting:0
       };
-
+    
     
     this.handleCreateEventClick=this.handleCreateEventClick.bind(this)
     this.handleDisplayEvents=this.handleDisplayEvents.bind(this)
@@ -167,6 +142,8 @@ class App extends Component {
     this.sendObjectToServer(event,n)
     this.handleDisplayEventChoise(n)
   }
+
+
   handleDisplayEventChoise=(n)=>{
     console.log('diplayed n:' +n)
 
@@ -187,6 +164,8 @@ class App extends Component {
   handleDisplayList(){
     this.setState({rightBoxContent: 'list'})
   }
+
+  
   handleInintialSortingChoise(choise,lat,lng){
     this.setState({rightBoxContent: 'list',
                     listInitialSorting:choise,
@@ -232,98 +211,80 @@ class App extends Component {
             rightBoxContent=displayEventBlock;
             break;
 
-
     }
 
-    const { classes } = this.props;
     return (
-       
-        <div className={classes.root}>
-        <CssBaseline />
-        <AppBar position="static"  className={classes.appBar}>
-          <Toolbar>
-            <Typography variant="h6" component="h1" gutterBottom color="inherit" noWrap className={classes.toolbarTitle}>
-              <CameraIcon className={classes.icon} />
-              Wydarzenia
-            </Typography>
-            <NavButtons  
+      <div style={{width: '99vw'}} >
+        <div className='appContainer'>
+        <TopBar  
                 className='navBar'
                 onCreateEventClick={this.handleCreateEventClick}
                  onDisplayEventClick = {this.handleDisplayEvents}
                  onDisplayListClick = {this.handleDisplayList}
                  view = {this.state.view}
-          />
-          </Toolbar>
-        </AppBar>
-        <main>
-        {/* Hero unit */}
-        <div className={classes.heroUnit}>
-          <div className={classes.heroContent}>
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              Znajdź wydarzenia najbliżej <br/> Ciebie
-            </Typography>
-            <Typography variant="h6" align="center" color="textSecondary" paragraph>
-              
-              {rightBoxContent} 
-            </Typography>
+         />
+        <div className='leftContent'>
+        </div>
+        <div className='rightContent'>
+          {rightBoxContent}
+        </div>
+        </div>
+        <div>
+          
           </div>
-        </div>
-        <div className={classNames(classes.layout, classes.cardGrid)}>
-          {/* End hero unit */}
-         
-        </div>
-      </main>
-        </div>
-
+      </div>
     );
   }
 }
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    flexDirection: 'column',
-    
-  },
-  appBar: {
-    position: 'relative',
-    
-  },
-  toolbarTitle: {
-    flex: 1,
-  },
-  icon: {
-    marginRight: theme.spacing.unit * 2,
-  },
-  heroUnit:{
-    padding: theme.spacing.unit * 4
-  }
-});
 
-
-class NavButtons extends Component{
+class TopBar extends Component{
 
   render () {
     let ButtonNames = ['Nowe Wydarzenie','Wyświetl wydarzenie','Lista wydarzeń'];
     return (
       <div className={this.props.className}>
-        <div className='buttonsStyle'>
+      <div className='navBarName'> <h1>Strona Do Wydarzeń</h1></div>
+
+        <div className='buttonsContainer'>
           <MenuButton name={ButtonNames[0]} handleClick={this.props.onCreateEventClick} />
           <MenuButton name={ButtonNames[1]} handleClick={this.props.onDisplayEventClick}/>
-                
+          { this.props.view===1 ?
+            <MenuButton name={ButtonNames[2]} handleClick={this.props.onDisplayListClick}/>:
+            <p></p>
+          }
+       
         </div>
       </div>
     );
   }
 }
+
 class MenuButton extends Component {
+  constructor(props){
+    super(props);
+    this.state = ({style: MenuButtonStyles});
+    this.handleClick = this.handleClick.bind(this);
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
+  }
+  handleClick(){
+    this.props.handleClick() 
+  }
+  handleMouseEnter(){
+    this.setState({style: MenuButtonHoveredStyles});
+  }
+  handleMouseLeave(){
+    this.setState({style: MenuButtonStyles});
+  }
   render () {
     return (
-      <Button style={{margin:8}} color="inherit" variant="outlined" onClick={this.props.handleClick}>
+      <div style={this.state.style} onClick={this.handleClick} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
         {this.props.name}
-      </Button>
+      </div>
     );
   }
 }
+
 
 let MenuButtonStyles  = {
   padding: '0.5vh',
@@ -335,6 +296,7 @@ let MenuButtonHoveredStyles  = {
   background : 'blue',
   opacity : '0.5'
 }
+
 let defaultEvent ={imageVisibility: true,
   title: 'Add your title',
   organizer: 'Add Organizer',
@@ -347,4 +309,4 @@ let defaultEvent ={imageVisibility: true,
   editionMode:false,
   index: 0
   }
-export default withStyles(styles)(App);
+export default App;

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {Suggest} from './autosuggest.js'
 import styles from './search.css'
-import Button from '@material-ui/core/Button';
-
 
 function formatDate(d){
         return JSON.stringify(d).substring(1,11)
@@ -163,19 +161,19 @@ function formatDate(d){
         <div className='container'>
             <div className='topArea'>
                 <Suggest  
-                    eventListArray={this.props.eventListArray}
-                    mutateList={this.mutateList}/>
+                eventListArray={this.props.eventListArray}
+                            mutateList={this.mutateList}/>
                             {
                                 this.props.showButtons ? 
-                                <div><Button onClick={this.sortListAlphabetically} >Alfabetycznie</Button>
-                                <Button onClick={this.sortListByCategory} >katogoria</Button>
-                                <Button onClick={this.sortListByDate} >data</Button>
+                                <div><button onClick={this.sortListAlphabetically} >Alfabetycznie</button>
+                                <button onClick={this.sortListByCategory} >katogoria</button>
+                                <button onClick={this.sortListByDate} >data</button>
                                 </div>
                                 : <div></div>
                             } 
-                            Bądź sortuj wg: <Button onClick={this.sortListAlphabetically}>Alfabetu</Button> 
-                            <Button onClick={this.sortListByCategory}>kategorii</Button> 
-                            <Button onClick={this.sortListByDate}>daty</Button> 
+                            Bądź sortuj wg: <button onClick={this.sortListAlphabetically}>Alfabetu</button> 
+                            <button onClick={this.sortListByCategory}>kategorii</button> 
+                            <button onClick={this.sortListByDate}>daty</button> 
 
                             </div>
                  {this.getDataFromLocalStorage()}
@@ -215,8 +213,8 @@ class ListItem extends Component{
                 {this.props.categoty} <br/>
             </div>
             <div className='listItemButtons' >
-            <Button  onClick={this.handleEditClick}>Edit</Button>
-            <Button  onClick={this.handleDeleteClick}>Delete</Button>
+            <button  onClick={this.handleEditClick}>Edit</button>
+            <button  onClick={this.handleDeleteClick}>Delete</button>
             </div>
             </div>
         </div>

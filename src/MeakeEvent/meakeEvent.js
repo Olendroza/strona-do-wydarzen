@@ -1,22 +1,15 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {LocationSearchInput} from './locationSuggest.js'
-
-
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-
-
-
+import styles from './makeEvent.css'
 
 function formatDate(d){
     return d.substring(0,10)
 }
 
- class MeakeEvent extends Component{
+export class MeakeEvent extends Component{
     constructor(props){
         super(props);
 
@@ -130,69 +123,49 @@ function formatDate(d){
     }
         
     render(){
-        const { classes } = this.props;
         return(
 
-            <div style={{flexGrow:1}}>
+            <div className='container'>
+            <div className='imageDiv'>
             
-                <Grid container >
-                <Grid className={classes.title} item xs={12}>
-                <h1>Nowe wydarzenie</h1>
-                </Grid >
-                <Grid  className={classes.smallGridItems} item xs={3}>Tytuł: </Grid>
-                <Grid  className={classes.smallGridItems} item xs={3}> <AddTextData name={this.state.title} onSubmit={this.handleTitleSubmission}/></Grid>
+            <Image className='image'src = {this.state.imgSrc}/>
+            <AddTextData className='addTitle' name={this.state.title} onSubmit={this.handleTitleSubmission}/>
 
-                <Grid  className={classes.smallGridItems}  item xs={3}>Organizator:</Grid>
-                <Grid  className={classes.smallGridItems} item xs={3}><AddTextData  name={this.state.organizer} onSubmit={this.handleOrganizerSubmission}/></Grid>
+            </div>
+            <div className='infoContainer'>
+            <div className='meakeDescDiv'>
+                <AddTextData  name={this.state.organizer} onSubmit={this.handleOrganizerSubmission}/>
+                Kategoria <Category onChange={this.handleCategoryChange}/> <br/>
+                 Od <PickDate onChange={this.handleBeginDateChange} date={this.state.beginDate}/> <br/> do <PickDate onChange={this.handleEndDateChange}date={this.state.endDate}/> 
+                <AddTextData className='descStyle'  name={this.state.desc} onSubmit={this.handleDescSubmission}/>
+            
 
-                <Grid  className={classes.smallGridItems} item xs={3}>Data rozpoczęcia: </Grid>
-                <Grid  className={classes.smallGridItems} item xs={3}><PickDate onChange={this.handleBeginDateChange} date={this.state.beginDate}/></Grid>
 
-                <Grid  className={classes.smallGridItems} item xs={3}>Data zakończenia:</Grid>
-                <Grid  className={classes.smallGridItems} item xs={3}><PickDate onChange={this.handleEndDateChange}date={this.state.endDate}/></Grid>
-
-                <Grid  className={classes.smallGridItems} item xs={3}>Adres obrazu:</Grid>
-                <Grid  className={classes.smallGridItems} item xs={3}><AddTextData className='imgUrlInput' name={this.state.imgSrc} onSubmit={this.handleImgSrcSubmission}/></Grid>
-
-                <Grid  className={classes.smallGridItems} item xs={3}> Kategoria </Grid>
-                <Grid  className={classes.smallGridItems} item xs={3}><Category onChange={this.handleCategoryChange}/></Grid>
-            </Grid>
-            <Grid container direction="row"
-                
-                alignItems="center" > 
-            <Grid  item xs={4}><Image className='image'src = {this.state.imgSrc}/> </Grid>
-            <Grid  item xs={4}>Opis: <AddTextData className={classes.descStyles}  name={this.state.desc} onSubmit={this.handleDescSubmission}/>
+                            {
+                                this.state.editionMode?
+                                <MeakeButton  onClick={this.handleEventSave} value='Save event'/>
+                                :
+                                <MeakeButton  onClick={this.handleMeakeEventSubmisson} value='Meake event'/>
+                            }
+            </div>
+            <div className='rightContainer'>
+            Dodaj adres obrazu:<AddTextData className='imgUrlInput' name={this.state.imgSrc} onSubmit={this.handleImgSrcSubmission}/>     
+            <Map  className='mapContainer'center={this.state.eventPlace} title={this.state.title}/>
             Wybierz miejsce wydarzenia:
             <LocationSearchInput handleSelect={this.handleLocationSelect} 
                                  value={'Chorzów'}
                                  onChange={value => this.setState({ value })}
-                                 handleSelect={(lat,lng)=>this.handleLocationSelect(lat,lng)}/> </Grid>
-            <Grid  item xs={4}><Map  className='mapContainer'center={this.state.eventPlace} title={this.state.title}/> </Grid>
-            </Grid>
-            {
-                this.state.editionMode?
-                <MeakeButton  onClick={this.handleEventSave} value='Save event'/>
-                :
-                <MeakeButton  onClick={this.handleMeakeEventSubmisson} value='Meake event'/>
-            }
-               
+                                 handleSelect={(lat,lng)=>this.handleLocationSelect(lat,lng)}/> 
+                            
+                            
             </div>               
+            </div>
+            </div>
         );
     }
 }
 
-const stylesMeakeEvent = theme => ({
-    descStyles: {
-      width:400,
-      height:300,
-    },
-    smallGridItems:{
-        padding:12
-    },
-    title:{
-        padding:12
-    }
-  });
+
 
 
 class AddTextData extends Component{
@@ -204,6 +177,7 @@ class AddTextData extends Component{
         
         this.handleChange = this.handleChange.bind(this);
         this.handleSumbit = this.handleSumbit.bind(this);
+        this.handleClick = this.handleClick.bind(this)
     }
     
     static getDerivedStateFromProps(props,state){
@@ -219,14 +193,15 @@ class AddTextData extends Component{
         e.preventDefault();
         this.props.onSubmit(this.state.value);
     }
+    handleClick(){
+        this.setState({value: '',localChange:true});
+    }
     render(){
         return(
             <div  onBlur={this.handleSumbit}>
-                <TextField  multiline 
-                placeholder={this.props.name}
-                className={this.props.className}
+                <textarea  className={this.props.className}
                 type='text'
-                
+                value={this.state.value}
                 onChange={this.handleChange}
                 onClick={this.handleClick}/>
             </div>
@@ -263,9 +238,7 @@ class PickDate extends React.Component {
    
     render() {
       return (
-        <TextField 
-         type="date"
-
+        <DatePicker 
           selected={this.state.startDate}
           onChange={this.handleChange}
         />
@@ -283,13 +256,13 @@ class Category extends Component{
     }
     render(){   
         return (
-            <Select style={{width:160}}onChange={this.handleChange}>
+            <select onChange={this.handleChange}>
                  <option value="sport">sport</option>
                  <option value="muzyka">muzyka</option>
                  <option value="film">film</option>
                 <option value="spotkanie">spotkanie</option>
                 <option value="it">it</option>
-            </Select>
+            </select>
         )
     }
 }
@@ -346,10 +319,9 @@ render(){
         </div>
 
     );
-}s
+}
 
 }
 
 
-export default withStyles(stylesMeakeEvent)(MeakeEvent);
 

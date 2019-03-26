@@ -1,41 +1,15 @@
-#mainPageHeader{
 
-    display: flex;
-    height: 70px;
-    justify-content: space-between;
-    background: black
+.innerDiv{
+    margin: auto;
+    padding-top:5px;
 }
-#partyIcon{
-    height:70px;
-    width: auto;
-    align-self: flex-end;
-    
-}
-#pageTitle{
-    color: red;
-}
-#video{
-    filter: blur(20%);
-    filter: brightness(60%);
-    margin-top: -200px; 
-    width: 100vw;
-    min-height: 600px;
-}
-#content{
-    margin: 0, auto;
-    width: 100vw;
-    overflow:hidden;
-    display:block;
-    height: 400px;}
-.mainContainer{
+.searchDiv{
     display:flex;
-    flex-direction: column;
+    justify-content: space-between
 }
-#innerContentBox{
-    position: absolute;
-    top: 170px;
-    right:40vw;
+.searchButton{
+    height: 30px;
 }
-#bottomContent{
-    background: black;
+.location-search-input{
+    width:300px;
 }

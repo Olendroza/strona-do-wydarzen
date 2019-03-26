@@ -25,9 +25,9 @@
     object-fit: contain;
 
     border:solid;
-    margin:15px;
-    height: 300px;
-    width: 300px;
+    margin:10px;
+    height: 200px;
+    width: 200px;
 
     background-repeat: no-repeat;
     background-position: center; 
