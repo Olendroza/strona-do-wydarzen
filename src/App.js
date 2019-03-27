@@ -286,7 +286,6 @@ const styles = theme => ({
   }
 });
 
-
 class NavButtons extends Component{
 
   render () {
@@ -312,16 +311,6 @@ class MenuButton extends Component {
   }
 }
 
-let MenuButtonStyles  = {
-  padding: '0.5vh',
-  background : 'red',
-  opacity : '0.5',
-}
-let MenuButtonHoveredStyles  = {
-  padding: '0.5vh',
-  background : 'blue',
-  opacity : '0.5'
-}
 let defaultEvent ={imageVisibility: true,
   title: 'Add your title',
   organizer: 'Add Organizer',
