@@ -117,8 +117,7 @@ class App extends Component {
     .then(()=>{this.getEventListFromServer()})
     .catch((err)=>console.log(err))
   }
-  //
-  
+  // 
   handleEventCreation(event){
     let eventArray = this.state.eventListArray;
       if(event.editionMode===true){
@@ -129,7 +128,7 @@ class App extends Component {
       this.sendObjectToServer(event,-1)
       this.handleDisplayEventChoise(this.state.eventListArray.length)
 
-     }
+  }
   handleEventDeletion (n){
     console.log('usuwam'+n)
     this.sendObjectToServer(n,-2)
@@ -179,28 +178,24 @@ class App extends Component {
                     listInitialSorting:choise,
                     searchingPlace: {lat:lat,lng:lng}
                     })
-  }
-  
-   
-
-
-  
-  render() {
-     
-    let meakeEventBlock = <MeakeEvent handleEventCreation={this.handleEventCreation}
+  }  
+  render() {   
+    let meakeEventBlock = <MeakeEvent
+                          handleEventCreation={this.handleEventCreation}
                           handleEventSave={this.handleEventSave}
                           view={this.state.view}
                           editingEvent={this.state.editingEvent}
                           />
-    let displayEventBlock = <DisplayEvent displayedEvent={this.state.eventListArray[this.state.displayedEvent]}
-                              /> 
+    let displayEventBlock = <DisplayEvent
+                          displayedEvent={this.state.eventListArray[this.state.displayedEvent]}
+                          /> 
     let eventListBlock = <DisplayList eventListArray={this.state.eventListArray}  lista wydarzen
                           handleEventDeletion = {this.handleEventDeletion}
-                            handleEventChoise={this.handleDisplayEventChoise}
-                            handleEventEdition={this.handleEventEdition}
-                            initialSorting = {this.state.listInitialSorting}
-                            searchingPlace = {this.state.searchingPlace}
-                            showButtons={false}
+                          handleEventChoise={this.handleDisplayEventChoise}
+                          handleEventEdition={this.handleEventEdition}
+                          initialSorting = {this.state.listInitialSorting}
+                          searchingPlace = {this.state.searchingPlace}
+                          showButtons={false}
                           />
     let mainPageComponentBlock = <MainPageComponent handleSelect={this.handleInintialSortingChoise}/>
     let rightBoxContent
@@ -218,62 +213,54 @@ class App extends Component {
       case 'displayEvent':
             rightBoxContent=displayEventBlock;
             break;
-
-
     }
 
     const { classes } = this.props;
     return (
-       
         <div className={classes.root}>
-        <CssBaseline />
-        <AppBar position="static"  className={classes.appBar}>
-          <Toolbar>
-            <Typography variant="h6" component="h1" gutterBottom color="inherit" noWrap className={classes.toolbarTitle}>
-              <CameraIcon className={classes.icon} />
-              Wydarzenia
-            </Typography>
-            <NavButtons  
+          <CssBaseline />
+          <AppBar position="static"  className={classes.appBar}>
+            <Toolbar>
+              <Typography variant="h6" component="h1" gutterBottom color="inherit" noWrap className={classes.toolbarTitle}>
+                <CameraIcon className={classes.icon} />
+                Wydarzenia
+              </Typography>
+              <NavButtons  
                 className='navBar'
                 onCreateEventClick={this.handleCreateEventClick}
-                 onDisplayEventClick = {this.handleDisplayEvents}
-                 onDisplayListClick = {this.handleDisplayList}
-                 view = {this.state.view}
-          />
-          </Toolbar>
-        </AppBar>
-        <main>
-        {/* Hero unit */}
-        <div className={classes.heroUnit}>
-          <div className={classes.heroContent}>
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              Znajdź wydarzenia najbliżej <br/> Ciebie
-            </Typography>
-            <Typography variant="h6" align="center" color="textSecondary" paragraph>
-              
-              {rightBoxContent} 
-            </Typography>
+                onDisplayEventClick = {this.handleDisplayEvents}
+                onDisplayListClick = {this.handleDisplayList}
+                view = {this.state.view}
+              />
+            </Toolbar>
+          </AppBar>
+          <main>
+          {/* Hero unit */}
+          <div className={classes.heroUnit}>
+            <div className={classes.heroContent}>
+              <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                Znajdź wydarzenia najbliżej <br/> Ciebie
+              </Typography>
+              <Typography variant="h6" align="center" color="textSecondary" paragraph>
+                {rightBoxContent} 
+              </Typography>
           </div>
-        </div>
-        <div className={classNames(classes.layout, classes.cardGrid)}>
-          {/* End hero unit */}
-         
-        </div>
-      </main>
-        </div>
-
+          </div>
+          <div className={classNames(classes.layout, classes.cardGrid)}>
+            {/* End hero unit */} 
+          </div>
+          </main>
+          </div>
     );
   }
 }
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    flexDirection: 'column',
-    
+    flexDirection: 'column',  
   },
   appBar: {
     position: 'relative',
-    
   },
   toolbarTitle: {
     flex: 1,
@@ -285,9 +272,7 @@ const styles = theme => ({
     padding: theme.spacing.unit * 4
   }
 });
-
 class NavButtons extends Component{
-
   render () {
     let ButtonNames = ['Nowe Wydarzenie','Wyświetl wydarzenie','Lista wydarzeń'];
     return (
@@ -295,7 +280,6 @@ class NavButtons extends Component{
         <div className='buttonsStyle'>
           <MenuButton name={ButtonNames[0]} handleClick={this.props.onCreateEventClick} />
           <MenuButton name={ButtonNames[1]} handleClick={this.props.onDisplayEventClick}/>
-                
         </div>
       </div>
     );
@@ -323,4 +307,5 @@ let defaultEvent ={imageVisibility: true,
   editionMode:false,
   index: 0
   }
+  
 export default withStyles(styles)(App);
