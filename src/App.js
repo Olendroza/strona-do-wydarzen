@@ -5,31 +5,18 @@ import {DisplayList} from './Search/search'
 import {MainPageComponent} from './mainPageComponent/mainPageComponent';
 
 
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
-import Paper from '@material-ui/core/Paper';
+
 import classNames from 'classnames';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import {withTheme } from '@material-ui/core/styles';
 
 
-
-const partyIcon = require('./mainPageComponent/party.png');
-const backgroundVid = require('./mainPageComponent/lb.mp4');
 function findAvibleName(eventList,eventTitle){
   let eventListTileArray =[]
   let repetitingTitleArray=[]
