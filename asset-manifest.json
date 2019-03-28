@@ -1,15 +1,15 @@
 {
-  "main.css": "/strona-do-wydarzen/static/css/main.841d4d8b.chunk.css",
-  "main.js": "/strona-do-wydarzen/static/js/main.2401e843.chunk.js",
-  "main.js.map": "/strona-do-wydarzen/static/js/main.2401e843.chunk.js.map",
-  "static/css/1.7019bf66.chunk.css": "/strona-do-wydarzen/static/css/1.7019bf66.chunk.css",
-  "static/js/1.ea694274.chunk.js": "/strona-do-wydarzen/static/js/1.ea694274.chunk.js",
-  "static/js/1.ea694274.chunk.js.map": "/strona-do-wydarzen/static/js/1.ea694274.chunk.js.map",
-  "runtime~main.js": "/strona-do-wydarzen/static/js/runtime~main.8f82d6aa.js",
-  "runtime~main.js.map": "/strona-do-wydarzen/static/js/runtime~main.8f82d6aa.js.map",
-  "static/css/1.7019bf66.chunk.css.map": "/strona-do-wydarzen/static/css/1.7019bf66.chunk.css.map",
-  "static/css/main.841d4d8b.chunk.css.map": "/strona-do-wydarzen/static/css/main.841d4d8b.chunk.css.map",
+  "main.css": "/strona-do-wydarzen/static/css/main.0786cfb7.chunk.css",
+  "main.js": "/strona-do-wydarzen/static/js/main.db94db36.chunk.js",
+  "main.js.map": "/strona-do-wydarzen/static/js/main.db94db36.chunk.js.map",
+  "runtime~main.js": "/strona-do-wydarzen/static/js/runtime~main.cc16c798.js",
+  "runtime~main.js.map": "/strona-do-wydarzen/static/js/runtime~main.cc16c798.js.map",
+  "static/css/2.38682c5c.chunk.css": "/strona-do-wydarzen/static/css/2.38682c5c.chunk.css",
+  "static/js/2.5d676c04.chunk.js": "/strona-do-wydarzen/static/js/2.5d676c04.chunk.js",
+  "static/js/2.5d676c04.chunk.js.map": "/strona-do-wydarzen/static/js/2.5d676c04.chunk.js.map",
   "index.html": "/strona-do-wydarzen/index.html",
-  "precache-manifest.60f6db4037a8617305b5040f09eda939.js": "/strona-do-wydarzen/precache-manifest.60f6db4037a8617305b5040f09eda939.js",
-  "service-worker.js": "/strona-do-wydarzen/service-worker.js"
+  "precache-manifest.4c93a24dd1051fad2b9e8920b6f5eebc.js": "/strona-do-wydarzen/precache-manifest.4c93a24dd1051fad2b9e8920b6f5eebc.js",
+  "service-worker.js": "/strona-do-wydarzen/service-worker.js",
+  "static/css/2.38682c5c.chunk.css.map": "/strona-do-wydarzen/static/css/2.38682c5c.chunk.css.map",
+  "static/css/main.0786cfb7.chunk.css.map": "/strona-do-wydarzen/static/css/main.0786cfb7.chunk.css.map"
 }
